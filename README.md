@@ -1,4 +1,4 @@
-This is the React code base for the App "Senf" (https://senf.koeln/) 
+This is the React code base for the App "Senf" (https://senf.koeln/) <br/>
 Since we don't want to touch live data, we have set up this as a test environment. 
 
 ## 1: Create a Mapbox Account and get an Access Token
