@@ -1,68 +1,25 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the React code base for the App "Senf" (https://senf.koeln/) 
+Since we don't want to touch live data, we have set up this as a test environment. 
 
-## Available Scripts
+## 1: Create a Mapbox Account and get an Access Token
 
-In the project directory, you can run:
+To obtain an access token, sign in to https://www.mapbox.com/ and visit Account > Tokens. The token will start with "pk". You may use the default or create another 
 
-### `npm start`
+## 2: Add a .env file to the Project root containing the following two Variables:
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+REACT_APP_MAPBOX_ACCESS_TOKEN= Your_Access_token_here
+REACT_APP_DB_BASE_URL=https://europe-west1-senf-dev.cloudfunctions.net/api 
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Tip: If you already started the React Server before adding these variables you need to restart the react server afterwards 
 
-### `npm test`
+## 3: Install packages
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+run `npm install`
 
-### `npm run build`
+## 4: Run project
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+run `npm start`
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+## 5: Open it
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+go to [http://localhost:3000](http://localhost:3000)
