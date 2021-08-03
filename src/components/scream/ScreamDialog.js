@@ -258,13 +258,6 @@ const styles = {
     paddingBottom: "15px",
   },
 
-  commentHeader: {
-    fontFamily: "Futura PT W01-Bold",
-    marginLeft: "5vw",
-    paddingTop: "1em",
-    paddingBottom: "1em",
-    color: "#414345",
-  },
   KontaktButton: {
     position: "absolute",
     zIndex: 99,
@@ -615,11 +608,6 @@ class ScreamDialog extends Component {
         </button>
       </div>
     ) : null;
-
-    const commentHeader =
-      commentCount > 0 ? (
-        <span className={classes.commentHeader}> Kommentare</span>
-      ) : null;
 
     const deleteButton =
       authenticated && (isAdmin === true || isModerator === true) ? (
