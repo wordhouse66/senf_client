@@ -248,8 +248,7 @@ class Geofilter extends Component {
     } = this.props;
 
     const {
-      classes,
-      user: { authenticated }, // shows unused var error = how should this code be modified?
+      classes
     } = this.props;
 
     const data =
