@@ -20,7 +20,6 @@ import { logoutUser, getUserData } from "./redux/actions/userActions";
 //Pages
 import home from "./pages/home";
 import start from "./components/infocomponents/start";
-import share from "./components/modals/share";
 
 import info from "./components/infocomponents/info";
 import intro from "./components/infocomponents/intro";
@@ -114,7 +113,6 @@ if (token) {
   store.dispatch(logoutUser());
 }
 
-
 if (cookies.get("Cookie_settings") === "all") {
   ReactGA.initialize(process.env.REACT_APP_GOOGLE_ANALYTICS);
   ReactGA.pageview(window.location.pathname + window.location.search);
@@ -181,8 +179,6 @@ class App extends Component {
                 />
 
                 <Route exact path="/impressum" component={impressum} />
-
-                <Route exact path="/share/:screamId" component={share} />
 
                 <Route exact path="/:screamId" component={home} />
               </Switch>
