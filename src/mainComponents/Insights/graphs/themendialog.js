@@ -1,11 +1,9 @@
 /** @format */
 
 import React, { Component, Fragment } from "react";
-import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import MyButton from "../../../util/MyButton";
 
-import { Link } from "react-router-dom";
 // MUI Stuff
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -13,14 +11,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 // Icons
 import CloseIcon from "@material-ui/icons/Close";
 
-import Button from "@material-ui/core/Button";
-
-// Redux stuff
-import { connect } from "react-redux";
-import { clearErrors } from "../../../redux/actions/dataActions";
-
 import Thema from "./thema";
-import Trends from "./trends";
 
 //ANIMATION
 import Slide from "@material-ui/core/Slide";
@@ -145,10 +136,7 @@ class ThemenDialog extends Component {
   };
 
   render() {
-    const {
-      classes,
-      UI: { loading },
-    } = this.props;
+    const { classes } = this.props;
 
     const dialogComponent = isMobileOnly ? (
       <Dialog
@@ -208,21 +196,4 @@ class ThemenDialog extends Component {
   }
 }
 
-ThemenDialog.propTypes = {
-  clearErrors: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  scream: state.data.scream,
-  UI: state.UI,
-  user: state.user,
-});
-
-const mapActionsToProps = {
-  clearErrors,
-};
-
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withStyles(styles)(ThemenDialog));
+export default withStyles(styles)(ThemenDialog);
