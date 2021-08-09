@@ -26,7 +26,6 @@
     "html-to-image": "^1.7.0",
     "html2canvas": "^1.0.0-rc.5",
     "intersection-observer": "^0.10.0",
-    "jwt-autorefresh": "^0.2.4",
     "jwt-decode": "^2.2.0",
     "leaflet": "^1.7.1",
     "leaflet-control-geocoder": "^2.1.0",
