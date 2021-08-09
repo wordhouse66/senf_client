@@ -63,7 +63,7 @@ export class Wordcloud extends Component {
     const Words_new_array_six = Words[5];
 
     if (
-      this.state.bezirk == "3" &&
+      this.state.bezirk === "3" &&
       Words_new_array !== undefined &&
       Words_new_array.length > 0
     ) {

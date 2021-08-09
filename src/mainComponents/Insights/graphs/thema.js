@@ -1,7 +1,6 @@
 /** @format */
 
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import withStyles from "@material-ui/core/styles/withStyles";
 
@@ -51,26 +50,26 @@ export class Thema extends Component {
       Thema_nach_wunsch_array.length > 0
     ) {
       Thema_nach_wunsch_array.forEach((element) => {
-        if (element.Thema == "Rad") {
+        if (element.Thema === "Rad") {
           Rad.push(element.likeCount);
         }
-        if (element.Thema == "Inklusion / Soziales") {
+        if (element.Thema === "Inklusion / Soziales") {
           Inklusion_Soziales.push(element.likeCount);
         }
-        if (element.Thema == "Verkehr") {
+        if (element.Thema === "Verkehr") {
           Verkehr.push(element.likeCount);
         }
 
-        if (element.Thema == "Umwelt und Grün") {
+        if (element.Thema === "Umwelt und Grün") {
           Umwelt.push(element.likeCount);
         }
-        if (element.Thema == "Versorgung") {
+        if (element.Thema === "Versorgung") {
           Versorgung.push(element.likeCount);
         }
-        if (element.Thema == "Sport / Freizeit") {
+        if (element.Thema === "Sport / Freizeit") {
           Sport_Freizeit.push(element.likeCount);
         }
-        if (element.Thema == "Sonstige") {
+        if (element.Thema === "Sonstige") {
           Sonstige.push(element.likeCount);
         }
       });

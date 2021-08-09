@@ -38,7 +38,6 @@ import Swipe from "react-easy-swipe";
 
 //ANIMATION
 import Slide from "@material-ui/core/Slide";
-import { isMobileOnly } from "react-device-detect";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -136,7 +135,7 @@ class Insights extends Component {
   }
 
   render() {
-    const { classes, data } = this.props;
+    const { classes } = this.props;
 
     const analyse = this.state.open ? <Analyse></Analyse> : null;
 

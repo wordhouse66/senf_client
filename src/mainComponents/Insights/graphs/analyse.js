@@ -12,9 +12,6 @@ import HandFull from "../../../images/icons/handsFull.png";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 const styles = {
-  //   analysewrapper: {
-  //     paddingBottom: "50vh"
-  //   },
   keyindicatorswrapper: {
     display: "flex",
     flexDirection: "row",
@@ -26,13 +23,10 @@ const styles = {
   },
   keyindicatorCard: {
     position: "relative",
-    // width: "30%",
     height: "50px",
     paddingLeft: "10px",
     paddingRight: "10px",
-
     textAlign: "center",
-
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-end",
@@ -91,7 +85,6 @@ export class Analyse extends Component {
         <div className={classes.keyindicatorswrapper}>
           {Wishlength}
           {Likeslength}
-
           {Commentslength}
         </div>
       </div>
@@ -99,11 +92,6 @@ export class Analyse extends Component {
   }
 }
 
-const mapActionsToProps = {};
-
 const mapStateToProps = (state) => ({ data: state.data });
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withStyles(styles)(Analyse));
+export default connect(mapStateToProps)(withStyles(styles)(Analyse));

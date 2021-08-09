@@ -1,9 +1,6 @@
 /** @format */
 
 import React, { Component } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
 import Analyse from "./graphs/analyse";
 import ThemenDialog from "./graphs/themendialog";
@@ -16,11 +13,7 @@ import Stadtteilcover from "../../images/stadtteilcover.png";
 import Keywordscover from "../../images/keywordscover.png";
 import Altersgruppencover from "../../images/altersgruppencover.png";
 
-const styles = {};
 export class InsightsPage extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     const { order } = this.props;
 
@@ -50,15 +43,5 @@ export class InsightsPage extends Component {
     ) : null;
   }
 }
-InsightsPage.propTypes = {};
 
-const mapActionsToProps = {};
-
-const mapStateToProps = (state) => ({
-  data: state.data,
-});
-
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withStyles(styles)(InsightsPage));
+export default InsightsPage;
