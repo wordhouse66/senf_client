@@ -23,8 +23,4 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run Cypress
-        uses: cypress-io/github-action@v2
-        with:
-          wait-on: "http://localhost:3000"
-          wait-on-timeout: 120
-      - run: cypress:ci
+        run: npm run cypress:ci
