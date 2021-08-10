@@ -12,25 +12,14 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-20.04
-
-    strategy:
-      matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
-      - uses: actions/checkout@v2
-      - uses: cypress-io/github-action@v2
-        with:
-          browser: chrome
-          headless: true
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Node
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '16'
           cache: 'npm'
-      - name: Cypress run
+      - name: Run Cypress
         uses: cypress-io/github-action@v2
-        with:
-          start: npm start
-      - run: npm run cy:run
+      - run: cypress:ci
