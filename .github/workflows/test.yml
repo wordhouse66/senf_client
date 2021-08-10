@@ -27,4 +27,4 @@ jobs:
         with:
           wait-on: "http://localhost:3000"
           wait-on-timeout: 120
-          start: cypress:ci
+      - run: cypress:ci
