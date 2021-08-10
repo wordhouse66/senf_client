@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Set up Node
+      - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '16'
@@ -24,4 +24,7 @@ jobs:
         run: npm ci
       - name: Run Cypress
         uses: cypress-io/github-action@v2
-      - run: cypress:ci
+        with:
+          wait-on: "http://localhost:3000"
+          wait-on-timeout: 120
+          start: cypress:ci
