@@ -67,12 +67,13 @@
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
+    "start:silent": "BROWSER=none PORT=3000 react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "super": "superstatic src",
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "cypress:ci": "start-server-and-test start:silent http://localhost:3000 cy:run",
+    "cypress": "start-server-and-test start:silent http://localhost:3000 cy:open"
+
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -92,7 +93,7 @@
   "devDependencies": {
     "@types/react-router-dom": "^4.3.5",
     "cypress": "^8.1.0",
-    "superstatic": "^7.1.0"
+    "start-server-and-test": "^1.13.1"
   },
   "proxy": "https://europe-west1-senf-dev.cloudfunctions.net/api"
 }
