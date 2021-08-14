@@ -1,16 +1,15 @@
 /** @format */
 
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import withStyles from "@material-ui/core/styles/withStyles";
+import axios from "axios";
+
+//Extra-Packages
 import ReactWordcloud from "react-wordcloud";
 
+//MUI Stuff
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
-import axios from "axios";
-
-const styles = {};
 
 const options = {
   colors: [
@@ -180,7 +179,6 @@ export class Wordcloud extends Component {
             <option value={5}>Sport / Freizeit</option>
           </Select>
         </FormControl>
-        {/* <div className={classes.clickblocker}></div> */}
         <div className={classes.wordcloud}>
           <ReactWordcloud options={options} words={Words_new} />
         </div>
@@ -189,11 +187,4 @@ export class Wordcloud extends Component {
   }
 }
 
-const mapActionsToProps = {};
-
-const mapStateToProps = (state) => ({ data: state.data });
-
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withStyles(styles)(Wordcloud));
+export default Wordcloud;

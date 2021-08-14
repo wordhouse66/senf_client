@@ -1,24 +1,20 @@
 /** @format */
 
 import React, { Component, Fragment } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
-import MyButton from "../../../util/MyButton";
-
-// MUI Stuff
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
+import { isMobileOnly } from "react-device-detect";
 
 // Icons
 import CloseIcon from "@material-ui/icons/Close";
 
-// Redux stuff
-import { connect } from "react-redux";
-
-//ANIMATION
-import Slide from "@material-ui/core/Slide";
+//Components
 import { Altersgruppe } from "./altersgruppe";
-import { isMobileOnly } from "react-device-detect";
+import MyButton from "../../../util/MyButton";
 
+// MUI Stuff
+import withStyles from "@material-ui/core/styles/withStyles";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import Slide from "@material-ui/core/Slide";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -218,14 +214,4 @@ class AltersgruppeDialog extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  UI: state.UI,
-  data: state.data,
-});
-
-const mapActionsToProps = {};
-
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withStyles(styles)(AltersgruppeDialog));
+export default withStyles(styles)(AltersgruppeDialog);

@@ -1,23 +1,22 @@
 /** @format */
 
 import React, { Component, Fragment } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
-import MyButton from "../../../util/MyButton";
 
-// MUI Stuff
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
+//Extra-Packages
+import { isMobileOnly } from "react-device-detect";
 
 // Icons
 import CloseIcon from "@material-ui/icons/Close";
 
+//Components
 import Thema from "./thema";
+import MyButton from "../../../util/MyButton";
 
-//ANIMATION
+// MUI Stuff
+import withStyles from "@material-ui/core/styles/withStyles";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
 import Slide from "@material-ui/core/Slide";
-
-import { isMobileOnly } from "react-device-detect";
-
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });

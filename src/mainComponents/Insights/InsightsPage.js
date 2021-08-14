@@ -2,12 +2,14 @@
 
 import React, { Component } from "react";
 
+//Components
 import Analyse from "./graphs/analyse";
 import ThemenDialog from "./graphs/themendialog";
 import StadttteilDialog from "./graphs/stadtteilDialog";
 import AltersgruppeDialog from "./graphs/altersgruppeDialog";
 import WordcloudDialog from "./graphs/wordcloudDialog";
 
+//Images
 import Themencover from "../../images/themencover.png";
 import Stadtteilcover from "../../images/stadtteilcover.png";
 import Keywordscover from "../../images/keywordscover.png";

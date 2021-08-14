@@ -1,15 +1,18 @@
 /** @format */
 
 import React, { Component } from "react";
+
+//Redux
 import { connect } from "react-redux";
 
-import CircularProgress from "@material-ui/core/CircularProgress";
+//MUI
+import withStyles from "@material-ui/core/styles/withStyles";
 
+//Icons
+import CircularProgress from "@material-ui/core/CircularProgress";
 import lamploader from "../../../images/lamp.png";
 import ChatBorder from "../../../images/icons/chat.png";
 import HandFull from "../../../images/icons/handsFull.png";
-
-import withStyles from "@material-ui/core/styles/withStyles";
 
 const styles = {
   keyindicatorswrapper: {

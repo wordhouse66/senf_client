@@ -1,16 +1,16 @@
 /** @format */
 
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import withStyles from "@material-ui/core/styles/withStyles";
 
+//Redux
+import { connect } from "react-redux";
+
+//Graphs
 import createPlotlyComponent from "react-plotlyjs";
 //See the list of possible plotly bundles at https://github.com/plotly/plotly.js/blob/master/dist/README.md#partial-bundles or roll your own
 import Plotly from "plotly.js/dist/plotly-cartesian";
-
 const PlotlyComponent = createPlotlyComponent(Plotly);
 
-const styles = {};
 export class Thema extends Component {
   render() {
     const { classes } = this.props;
@@ -301,13 +301,6 @@ export class Thema extends Component {
   }
 }
 
-Thema.propTypes = {};
-
-const mapActionsToProps = {};
-
 const mapStateToProps = (state) => ({ data: state.data });
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withStyles(styles)(Thema));
+export default connect(mapStateToProps)(Thema);

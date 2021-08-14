@@ -1,40 +1,40 @@
 /** @format */
 
 import React, { Component, Fragment } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
-import _ from "lodash";
 
-// MUI Stuff
-import Dialog from "@material-ui/core/Dialog";
-
-//ICONS AND BUTTONS
-import CloseIcon from "@material-ui/icons/Close";
-import MyButton from "../../util/MyButton";
-
+//Components
 import Analyse from "./analyse";
 import ThemenDialog from "./themendialog";
 import StadttteilDialog from "./stadtteilDialog";
 import AltersgruppeDialog from "./altersgruppeDialog";
 import WordcloudDialog from "./wordcloudDialog";
 
+import MyButton from "../../util/MyButton";
+
+//Images
 import Themencover from "../../images/themencover.png";
 import Stadtteilcover from "../../images/stadtteilcover.png";
 import Keywordscover from "../../images/keywordscover.png";
 import Altersgruppencover from "../../images/altersgruppencover.png";
 
+//ICONS
+import CloseIcon from "@material-ui/icons/Close";
+
+//Extra-Packages
+import Swipe from "react-easy-swipe";
+
+//Redux
+import { connect } from "react-redux";
 import {
   getScreams,
   getallComments,
   getallLikes,
 } from "../../redux/actions/dataActions";
 
-//Redux
-import { connect } from "react-redux";
-
-import Swipe from "react-easy-swipe";
-
-//ANIMATION
+// MUI Stuff
+import withStyles from "@material-ui/core/styles/withStyles";
+import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -188,24 +188,17 @@ class Insights extends Component {
 
 Insights.propTypes = {
   classes: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
-  UI: PropTypes.object.isRequired,
-  getScreams: PropTypes.func.isRequired,
-
   getallComments: PropTypes.func.isRequired,
   getallLikes: PropTypes.func.isRequired,
 };
 
 const mapActionsToProps = {
-  getScreams,
-
   getallComments,
   getallLikes,
 };
 
 const mapStateToProps = (state) => ({
   data: state.data,
-  user: state.user,
 });
 
 export default connect(
