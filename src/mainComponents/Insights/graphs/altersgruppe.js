@@ -3,7 +3,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import withStyles from "@material-ui/core/styles/withStyles";
-
+import axios from "axios";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -94,6 +94,7 @@ export class Altersgruppe extends Component {
 
     this.state = {
       order: 4,
+      agegroups: [],
       checked: 1,
       checked1: "Empty",
       checked2: "Empty",
@@ -104,6 +105,13 @@ export class Altersgruppe extends Component {
       checked7: "Empty",
     };
   }
+
+  componentDidMount() {
+    axios.get("/agegroups").then((res) => {
+      this.setState({ agegroups: res.data });
+    });
+  }
+
   handleLegend = (checked) => {
     this.setState({
       checked,
@@ -287,7 +295,7 @@ export class Altersgruppe extends Component {
   };
   render() {
     const { classes } = this.props;
-    const { agegroups } = this.props;
+    const { agegroups } = this.state;
 
     const themenfilter = (
       <div className={classes.legendwrapper}>

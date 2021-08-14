@@ -31,7 +31,7 @@ export class InsightsPage extends Component {
           </div>
 
           <div className="cover cover4">
-            <AltersgruppeDialog agegroups={this.props.data} />
+            <AltersgruppeDialog />
             <img src={Altersgruppencover} width="100%" alt="Themencover" />
           </div>
           <div className="cover cover3">

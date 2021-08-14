@@ -180,11 +180,7 @@ class AltersgruppeDialog extends Component {
         </MyButton>
 
         <DialogContent>
-          <Altersgruppe
-            data={this.props.data}
-            classes={this.props.classes}
-            agegroups={this.props.data.agegroups}
-          />
+          <Altersgruppe data={this.props.data} classes={this.props.classes} />
         </DialogContent>
       </Dialog>
     ) : (
@@ -204,11 +200,7 @@ class AltersgruppeDialog extends Component {
         </MyButton>
 
         <DialogContent>
-          <Altersgruppe
-            data={this.props.data}
-            classes={this.props.classes}
-            agegroups={this.props.data.agegroups}
-          />
+          <Altersgruppe data={this.props.data} classes={this.props.classes} />
         </DialogContent>
       </Dialog>
     );

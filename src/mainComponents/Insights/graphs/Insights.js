@@ -27,7 +27,6 @@ import {
   getScreams,
   getallComments,
   getallLikes,
-  getAgegroups,
 } from "../../redux/actions/dataActions";
 
 //Redux
@@ -116,9 +115,6 @@ class Insights extends Component {
     this.setState({ open: true });
     this.props.getallComments();
     this.props.getallLikes();
-
-    this.props.getWordcloud();
-    this.props.getAgegroups();
   };
   handleClose = () => {
     this.setState({ open: false });
@@ -166,7 +162,7 @@ class Insights extends Component {
               </div>
 
               <div className="cover cover4">
-                <AltersgruppeDialog agegroups={this.props.data} />
+                <AltersgruppeDialog />
                 <img src={Altersgruppencover} width="100%" alt="Themencover" />
               </div>
               <div className="cover cover3">
@@ -198,7 +194,6 @@ Insights.propTypes = {
 
   getallComments: PropTypes.func.isRequired,
   getallLikes: PropTypes.func.isRequired,
-  getAgegroups: PropTypes.func.isRequired,
 };
 
 const mapActionsToProps = {
@@ -206,7 +201,6 @@ const mapActionsToProps = {
 
   getallComments,
   getallLikes,
-  getAgegroups,
 };
 
 const mapStateToProps = (state) => ({

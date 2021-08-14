@@ -8,7 +8,6 @@ import {
   getScreams,
   getallComments,
   getallLikes,
-  getAgegroups,
   getProjects,
   closeScream,
   openScreamFirstTime,
@@ -232,8 +231,6 @@ export class home extends Component {
 
       this.props.getallComments();
       this.props.getallLikes();
-
-      this.props.getAgegroups();
     }
   };
 
@@ -1237,7 +1234,6 @@ home.propTypes = {
 
   getallComments: PropTypes.func.isRequired,
   getallLikes: PropTypes.func.isRequired,
-  getAgegroups: PropTypes.func.isRequired,
   openDialog: PropTypes.bool,
 
   getProjects: PropTypes.func.isRequired,
@@ -1255,7 +1251,6 @@ const mapActionsToProps = {
 
   getallComments,
   getallLikes,
-  getAgegroups,
 
   clearErrors,
 
