@@ -20,7 +20,6 @@ import {
   SUBMIT_COMMENT,
   SET_ALL_COMMENTS,
   SET_ALL_LIKES,
-  SET_WORDCLOUD,
   SET_AGEGROUPS,
   LOADING_PROJECTS_DATA,
   SET_PROJECTS,
@@ -72,23 +71,6 @@ export const getallLikes = () => (dispatch) => {
     .catch((err) => {
       dispatch({
         type: SET_ALL_LIKES,
-        payload: [],
-      });
-    });
-};
-
-export const getWordcloud = () => (dispatch) => {
-  axios
-    .get("/wordcloud")
-    .then((res) => {
-      dispatch({
-        type: SET_WORDCLOUD,
-        payload: res.data,
-      });
-    })
-    .catch((err) => {
-      dispatch({
-        type: SET_WORDCLOUD,
         payload: [],
       });
     });

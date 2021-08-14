@@ -27,7 +27,6 @@ import {
   getScreams,
   getallComments,
   getallLikes,
-  getWordcloud,
   getAgegroups,
 } from "../../redux/actions/dataActions";
 
@@ -199,7 +198,6 @@ Insights.propTypes = {
 
   getallComments: PropTypes.func.isRequired,
   getallLikes: PropTypes.func.isRequired,
-  getWordcloud: PropTypes.func.isRequired,
   getAgegroups: PropTypes.func.isRequired,
 };
 
@@ -208,7 +206,6 @@ const mapActionsToProps = {
 
   getallComments,
   getallLikes,
-  getWordcloud,
   getAgegroups,
 };
 

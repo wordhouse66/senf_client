@@ -19,8 +19,6 @@ import {
   SET_ALL_COMMENTS,
   ADD_ALL_LIKES,
   SET_ALL_LIKES,
-  ADD_WORDCLOUD,
-  SET_WORDCLOUD,
   ADD_AGEGROUPS,
   SET_AGEGROUPS,
   LOADING_PROJECTS_DATA,
@@ -187,19 +185,6 @@ export default function (state = initialState, action) {
           ...state.scream,
           comments: [action.payload, ...state.scream.comments],
         },
-      };
-
-    case ADD_WORDCLOUD:
-      return {
-        ...state,
-        wordcollections: [...state.wordcollections, ...action.payload],
-        loading: false,
-      };
-    case SET_WORDCLOUD:
-      return {
-        ...state,
-        wordcollections: action.payload,
-        loading: false,
       };
 
     case ADD_AGEGROUPS:
