@@ -1,8 +1,9 @@
 /** @format */
 
 import React, { Fragment, Component } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
+import withStyles from "@material-ui/core/styles/withStyles";
+
 import { connect } from "react-redux";
 import {
   getAllFullScreams,
@@ -21,12 +22,9 @@ import { clearErrors } from "../redux/actions/dataActions";
 import { logoutUser } from "../redux/actions/userActions";
 
 //ICONS
-import lamploader from "../images/lamp.png";
 import Sort from "../images/icons/sort.png";
 import Arrow from "../images/icons/arrow.png";
 import Not_connected from "../images/Not_connected.png";
-
-import { InsightsPage } from "../mainComponents/Insights/InsightsPage";
 
 import Cookies from "universal-cookie";
 import { MonitoringDesktopSidebar } from "../components/layout/MonitoringDesktopSidebar";
@@ -733,16 +731,10 @@ export class monitoring extends Component {
 
     console.log(this.props.data);
     const {
-      order,
-      screamIdParam,
       latitude1,
       latitude2,
-      latitude3,
-      latitude4,
-      longitude1,
       longitude2,
       longitude3,
-      longitude4,
       checked,
       checked1,
       checked2,
@@ -756,10 +748,7 @@ export class monitoring extends Component {
 
     const {
       classes,
-      user: {
-        credentials: { handle },
-        authenticated,
-      },
+      user: { authenticated },
     } = this.props;
 
     const error =
@@ -770,13 +759,6 @@ export class monitoring extends Component {
           <span className="oopsText">
             Etwas ist schiefgelaufen. Bitte lade die Seite neu!
           </span>
-        </div>
-      ) : null;
-
-    const loader =
-      loading && !this.state.openInfoPageDesktop ? (
-        <div className="spinnerDivBackground">
-          <img ssrc={lamploader} className="lamploader" alt="lamploader" />
         </div>
       ) : null;
 
@@ -1022,27 +1004,6 @@ export class monitoring extends Component {
       </div>
     );
 
-    // const projectOptions = projects ? (
-    //   <>
-    //     <option value=""> Allgemein (Alle Ideen)</option>
-
-    //     {_.orderBy(projects, "createdAt", "desc").map((projects) => (
-    //       <option value={projects.project}> {projects.title}</option>
-    //     ))}
-    //   </>
-    // ) : null;
-
-    // let projectOptions = [];
-    // const projectsArray = projects;
-
-    // projectOptions.push({ value: "", label: "Allgemein (Alle Ideen)" });
-
-    // projectsArray.forEach((element) => {
-    //   {
-    //     projectOptions.push({ value: element.project, label: element.title });
-    //   }
-    // });
-
     const projectsArray = projects ? (
       <Fragment>
         {_.orderBy(projects, "createdAt", "desc").map((projects) => (
@@ -1077,15 +1038,6 @@ export class monitoring extends Component {
       </Fragment>
     );
 
-    const options = [
-      { value: "chocolate", label: "Chocolate" },
-      { value: "strawberry", label: "Strawberry" },
-      { value: "vanilla", label: "Vanilla" },
-    ];
-
-    const monitoringEditScreamComponent = this.props.UI.openMonitoringScream ? (
-      <MonitoringEditScream />
-    ) : null;
     return (
       <div>
         {error}
@@ -1197,30 +1149,6 @@ export class monitoring extends Component {
                 <option value="">Allgemein (Alle Ideen)</option>
                 {projectsArray}
               </select>
-              {/* <MuiThemeProvider theme={theme}>
-                <NativeSelect
-                  value={this.state.project}
-                  onChange={this.handleDropdown}
-                  name="project"
-                  className="monitoringFormControl"
-                  inputProps={{ "aria-label": "project" }}
-                  id="project"
-                  IconComponent={() => (
-                    <img
-                      src={Arrow}
-                      width="20px"
-                      style={{
-                        marginTop: "0px",
-                        marginLeft: "-40px",
-                        pointerEvents: "none",
-                      }}
-                    ></img>
-                  )}
-                >
-                  <option value=""></option>
-                  {projectsArray}
-                </NativeSelect>
-              </MuiThemeProvider>  */}
             </div>
             <div
               style={{
@@ -1240,6 +1168,7 @@ export class monitoring extends Component {
                     <img
                       src={Arrow}
                       width="15px"
+                      alt="arrow-icon"
                       style={{
                         marginTop: "0px",
                         marginLeft: "-24px",
@@ -1271,6 +1200,7 @@ export class monitoring extends Component {
                   IconComponent={() => (
                     <img
                       src={Sort}
+                      alt="sort-icon"
                       width="20px"
                       style={{
                         marginTop: "0px",
@@ -1284,8 +1214,6 @@ export class monitoring extends Component {
                     neuste
                   </option>
                   <option value={20}>schärfste</option>
-                  {/* <option value={30}>umgesetzte</option>
-                  <option value={40}>verworfene</option> */}
                 </NativeSelect>
               </MuiThemeProvider>
             </div>
@@ -1326,10 +1254,10 @@ export class monitoring extends Component {
                 marginLeft: "5px",
               }}
             >
-              <img src={LikeIcon} width="20px"></img>{" "}
+              <img alt="like-icon" src={LikeIcon} width="20px"></img>{" "}
             </div>
             <div style={{ width: "20px", margin: "10px", marginTop: "8px" }}>
-              <img src={ChatBorder} width="20px"></img>{" "}
+              <img alt="comments-icon" src={ChatBorder} width="20px"></img>{" "}
             </div>
             <div
               style={{
@@ -1339,10 +1267,8 @@ export class monitoring extends Component {
                 textAlign: "center",
               }}
             >
-              <img src={CreatedAtIcon} width="20px"></img>{" "}
+              <img alt="calendar-icon" src={CreatedAtIcon} width="20px"></img>{" "}
             </div>
-            {/* <div style={{ width: "50px", margin: "10px" }}>Echo</div>
-              <div style={{ width: "50px", margin: "10px" }}>Projektraum</div> */}
           </div>
         </div>
         <div
@@ -1382,16 +1308,15 @@ export class monitoring extends Component {
             justifyContent: "center",
           }}
         >
-          {/* <div className="PostRulesHeader">Keine Idee ausgewählt</div> */}
           <img
             src={Not_connected}
             width="90%"
+            alt="no-selected-idea-illustration"
             style={{ marginBottom: "50px" }}
           ></img>
           <div className="no-ideas-yet">
             Wähle eine Idee aus, um diesen Bereich zu aktivieren
           </div>
-          {/*  {monitoringEditScreamComponent} */}
           <MonitoringEditScream />
         </div>
       </div>
