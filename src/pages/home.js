@@ -462,17 +462,6 @@ export class home extends Component {
   };
 
   zoomToBounds = (centerLat, centerLong, zoom) => {
-    // if (this.props.geoData !== undefined && this.props.geoData !== "") {
-    //   var bbox = require("geojson-bbox");
-    //   var feature = {
-    //     type: "Feature",
-    //     geometry: {
-    //       type: "LineString",
-    //       coordinates: JSON.parse(this.props.geoData),
-    //     },
-    //   };
-    //   var extent = bbox(feature);
-
     this.setState({
       viewport: {
         latitude: centerLat,
