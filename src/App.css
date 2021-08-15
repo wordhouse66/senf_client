@@ -2962,3 +2962,51 @@ display: none;
   flex-direction: column;
   justify-content: flex-end;
 }
+
+.insights-card{
+
+  top: 0em;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  position: relative;
+  margin-top: 2.5vw;
+  padding-top: 1em;
+  border-radius: 10px;
+  padding-bottom: 1em;
+  background-color: white;
+}
+
+
+.insights-card-title{
+    width: 100%;
+    height: 2em;
+    position: relative;
+    text-align: center;
+    font-family: Futura PT W01-Bold;
+}
+
+.insights-card-subtitle{
+  width: 100%;
+  height: auto;
+  position: relative;
+  font-size: 20;
+  max-width: 500px;
+  transform: translateX(-50%);
+  text-align: center;
+  font-family: Futura PT W01 Book;
+  margin-left: 50%;
+
+}
+
+.insights-plot-clickblocker{
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  position: absolute;
+}
+.insights-plot{
+    top: 20px;
+    width: 100%;
+    position: relative;
+}

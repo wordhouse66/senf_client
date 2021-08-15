@@ -7,7 +7,7 @@ import { isMobileOnly } from "react-device-detect";
 import CloseIcon from "@material-ui/icons/Close";
 
 //Components
-import { Altersgruppe } from "./altersgruppe";
+import Altersgruppe from "./altersgruppe";
 import MyButton from "../../../util/MyButton";
 
 // MUI Stuff

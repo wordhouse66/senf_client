@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { Component, Fragment } from "react";
+import React, { Fragment, useState } from "react";
 
 //Extra-Packages
 import { isMobileOnly } from "react-device-detect";
@@ -64,135 +64,72 @@ const styles = {
     borderRadius: 0,
     zIndex: 9,
   },
-  dialogcontent: {
-    position: "fixed",
-    marginLeft: "2.5vw",
-
-    width: "95vw",
-    height: "auto",
-  },
-
-  card: {
-    marginTop: "2.5vw",
-    top: "0em",
-    position: "relative",
-    width: "100%",
-    paddingTop: "1em",
-    backgroundColor: "white",
-    height: "auto",
-    paddingBottom: "1em",
-    borderRadius: "10px",
-    overflow: "hidden",
-  },
-  title: {
-    fontFamily: "Futura PT W01-Bold",
-    position: "relative",
-    height: "2em",
-    width: "100%",
-    fontSize: "28",
-    textAlign: "center",
-  },
-  subtitle: {
-    fontFamily: "Futura PT W01 Book",
-    position: "relative",
-    height: "auto",
-    width: "100%",
-    maxWidth: "500px",
-    marginLeft: "50%",
-    transform: "translateX(-50%)",
-    fontSize: "20",
-    textAlign: "center",
-  },
-
-  plot: {
-    top: "20px",
-    position: "relative",
-    width: "100%",
-  },
-  clickblocker: {
-    width: "100%",
-    height: "100%",
-    position: "absolute",
-    zIndex: "9",
-  },
 };
 
-class ThemenDialog extends Component {
-  state = {
-    open: false,
+const ThemenDialog = ({ classes }) => {
+  const [open, setOpen] = useState(false);
 
-    oldPath: "",
-    newPath: "",
-    path: "",
-  };
-
-  handleOpen = () => {
-    this.setState({ open: true });
-  };
-  handleClose = () => {
-    this.setState({ open: false });
-    this.props.clearErrors();
-  };
-
-  render() {
-    const { classes } = this.props;
-
-    const dialogComponent = isMobileOnly ? (
-      <Dialog
-        scroll={"body"}
-        open={this.state.open}
-        onClose={this.handleClose}
-        className="dialogOverlayContent"
-        BackdropProps={{ classes: { root: classes.root } }}
-        PaperProps={{ classes: { root: classes.paper } }}
-        TransitionComponent={Transition}
-        fullScreen
-        maxWidth={"lg"}
+  const dialogComponent = isMobileOnly ? (
+    <Dialog
+      scroll={"body"}
+      open={open}
+      onClose={() => setOpen(false)}
+      className="dialogOverlayContent"
+      BackdropProps={{ classes: { root: classes.root } }}
+      PaperProps={{ classes: { root: classes.paper } }}
+      TransitionComponent={Transition}
+      fullScreen
+      maxWidth={"lg"}
+    >
+      <MyButton
+        onClick={() => setOpen(false)}
+        btnClassName={classes.closeButton}
       >
-        <MyButton onClick={this.handleClose} btnClassName={classes.closeButton}>
-          <CloseIcon />
-        </MyButton>
+        <CloseIcon />
+      </MyButton>
 
-        <DialogContent>
-          <Thema classes={this.props.classes} />
-          {/* <br />
+      <DialogContent>
+        <Thema />
+        {/* <br />
         <Trends /> */}
-        </DialogContent>
-      </Dialog>
-    ) : (
-      <Dialog
-        scroll={"body"}
-        open={this.state.open}
-        onClose={this.handleClose}
-        className="dialogOverlayContent"
-        BackdropProps={{ classes: { root: classes.root } }}
-        PaperProps={{ classes: { root: classes.paperWeb } }}
-        TransitionComponent={Transition}
-        fullScreen
-        maxWidth={"lg"}
+      </DialogContent>
+    </Dialog>
+  ) : (
+    <Dialog
+      scroll={"body"}
+      open={open}
+      onClose={() => setOpen(false)}
+      className="dialogOverlayContent"
+      BackdropProps={{ classes: { root: classes.root } }}
+      PaperProps={{ classes: { root: classes.paperWeb } }}
+      TransitionComponent={Transition}
+      fullScreen
+      maxWidth={"lg"}
+    >
+      <MyButton
+        onClick={() => setOpen(false)}
+        btnClassName={classes.closeButton}
       >
-        <MyButton onClick={this.handleClose} btnClassName={classes.closeButton}>
-          <CloseIcon />
-        </MyButton>
+        <CloseIcon />
+      </MyButton>
 
-        <DialogContent>
-          <Thema classes={this.props.classes} />
-          {/* <br />
+      <DialogContent>
+        <Thema />
+        {/* <br />
         <Trends /> */}
-        </DialogContent>
-      </Dialog>
-    );
-    return (
-      <Fragment>
-        <MyButton
-          onClick={this.handleOpen}
-          btnClassName={classes.expandButton}
-        ></MyButton>
+      </DialogContent>
+    </Dialog>
+  );
+  return (
+    <Fragment>
+      <MyButton
+        onClick={() => setOpen(true)}
+        btnClassName={classes.expandButton}
+      ></MyButton>
 
-        {dialogComponent}
-      </Fragment>
-    );
-  }
-}
+      {dialogComponent}
+    </Fragment>
+  );
+};
 
 export default withStyles(styles)(ThemenDialog);
