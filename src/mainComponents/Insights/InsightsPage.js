@@ -3,7 +3,7 @@
 import React, { Component } from "react";
 
 //Components
-import Analyse from "./graphs/analyse";
+import Keyindicators from "./graphs/Keyindicators";
 import ThemenDialog from "./graphs/themendialog";
 import StadttteilDialog from "./graphs/stadtteilDialog";
 import AltersgruppeDialog from "./graphs/altersgruppeDialog";
@@ -22,7 +22,7 @@ export class InsightsPage extends Component {
     return order === 3 ? (
       <>
         <div className="MainAnimation2">
-          <Analyse />
+          <Keyindicators />
           <div className="cover cover1">
             <img src={Themencover} width="100%" alt="Themencover" />
             <ThemenDialog />
