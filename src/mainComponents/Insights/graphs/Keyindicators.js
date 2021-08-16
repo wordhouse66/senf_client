@@ -11,8 +11,8 @@ import lamploader from "../../../images/lamp.png";
 import ChatBorder from "../../../images/icons/chat.png";
 import HandFull from "../../../images/icons/handsFull.png";
 
-const Keyindicators = () => {
-  const { screams, likes, comments } = useSelector((state) => state.data);
+const Keyindicators = ({ screams, likesLength }) => {
+  const { likes, comments } = useSelector((state) => state.data);
 
   const Wishlength =
     screams.length === 0 ? (
@@ -32,7 +32,7 @@ const Keyindicators = () => {
     );
 
   const Likeslength =
-    likes.length === 0 ? (
+    likesLength === 0 ? (
       <div className="keyindicatorcard">
         <CircularProgress size={12} thickness={2} />
       </div>
@@ -40,7 +40,7 @@ const Keyindicators = () => {
       <div className="keyindicatorcard">
         <img src={HandFull} width="25px" alt="lamploader"></img>
         {"  "}
-        {likes.length} Votes
+        {likesLength} Votes
       </div>
     );
   const Commentslength =

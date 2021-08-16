@@ -26,7 +26,7 @@ import PostScream from "../components/postScream/PostScream";
 
 import Appbar from "../components/layout/Appbar";
 
-import { InsightsPage } from "../mainComponents/Insights/InsightsPage";
+import InsightsPage from "../mainComponents/Insights/InsightsPage";
 import { DesktopSidebar } from "../components/layout/DesktopSidebar";
 
 import Cookies from "universal-cookie";
