@@ -15,10 +15,6 @@ import {
   ADMIN_EDIT_SCREAM,
   SET_SCREAM,
   SUBMIT_COMMENT,
-  ADD_ALL_COMMENTS,
-  SET_ALL_COMMENTS,
-  ADD_ALL_LIKES,
-  SET_ALL_LIKES,
   LOADING_PROJECTS_DATA,
   SET_PROJECTS,
   SET_PROJECT_SCREAMS,
@@ -41,9 +37,8 @@ const initialState = {
   screams: [],
   scream: {},
 
-  comments: [],
   comment: {},
-  likes: [],
+
   like: {},
 
   loading: false,
@@ -83,34 +78,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         scream_user: action.payload,
-      };
-
-    case ADD_ALL_COMMENTS:
-      return {
-        ...state,
-        comments: [...state.comments, ...action.payload],
-        loading: false,
-      };
-
-    case SET_ALL_COMMENTS:
-      return {
-        ...state,
-        comments: action.payload,
-        loading: false,
-      };
-
-    case ADD_ALL_LIKES:
-      return {
-        ...state,
-        likes: [...state.likes, ...action.payload],
-        loading: false,
-      };
-
-    case SET_ALL_LIKES:
-      return {
-        ...state,
-        likes: action.payload,
-        loading: false,
       };
 
     case LIKE_SCREAM:

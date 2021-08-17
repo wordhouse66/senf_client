@@ -160,33 +160,23 @@ class Scream extends Component {
 
   fetchDataScream = async (screamId) => {
     const db = firebase.firestore();
-
-    const ref = db.collection("screams").doc(screamId);
-    const commentsRef = db
+    const ref = await db.collection("screams").doc(screamId).get();
+    const commentsRef = await db
       .collection("comments")
       .where("screamId", "==", screamId)
-      .orderBy("createdAt", "desc");
+      .orderBy("createdAt", "desc")
+      .get();
 
-    const doc = await ref.get();
-    const commentsDoc = await commentsRef.get();
-    if (!doc.exists) {
+    if (!ref.exists) {
       console.log("No such document!");
     } else {
-      const scream = doc.data();
-      scream.id = doc.id;
+      const scream = ref.data();
+      scream.id = ref.id;
       scream.comments = [];
 
-      if (!commentsDoc.exists) {
-        console.log("No comments found!");
-      } else {
-        commentsDoc.docs.forEach((doc) => {
-          const commentData = {
-            ...doc.data(),
-            id: doc.id,
-          };
-          scream.comments.push(commentData);
-        });
-      }
+      commentsRef.forEach((doc) =>
+        scream.comments.push({ ...doc.data(), id: doc.id })
+      );
 
       this.props.openScream(screamId, scream);
       window.location = "#" + scream.lat + "#" + scream.long;

@@ -18,8 +18,6 @@ import {
   SET_SCREAM,
   STOP_LOADING_UI,
   SUBMIT_COMMENT,
-  SET_ALL_COMMENTS,
-  SET_ALL_LIKES,
   LOADING_PROJECTS_DATA,
   SET_PROJECTS,
   SET_PROJECT_SCREAMS,
@@ -38,42 +36,6 @@ import {
   CLOSE_MONITORING_SCREAM,
 } from "../types";
 import axios from "axios";
-
-export const getallComments = () => (dispatch) => {
-  // dispatch({ type: LOADING_DATA });
-  axios
-    .get("/comments")
-    .then((res) => {
-      dispatch({
-        type: SET_ALL_COMMENTS,
-        payload: res.data,
-      });
-    })
-    .catch((err) => {
-      dispatch({
-        type: SET_ALL_COMMENTS,
-        payload: [],
-      });
-    });
-};
-
-export const getallLikes = () => (dispatch) => {
-  // dispatch({ type: LOADING_DATA });
-  axios
-    .get("/likes")
-    .then((res) => {
-      dispatch({
-        type: SET_ALL_LIKES,
-        payload: res.data,
-      });
-    })
-    .catch((err) => {
-      dispatch({
-        type: SET_ALL_LIKES,
-        payload: [],
-      });
-    });
-};
 
 // Get all Projects
 export const getProjects = () => (dispatch) => {
@@ -240,27 +202,6 @@ export const openScream = (screamId, scream) => (dispatch) => {
   window.history.pushState(null, null, newPath);
   dispatch({ type: SET_SCREAM, payload: scream });
   dispatch({ type: STOP_LOADING_UI });
-};
-
-export const openScreamFirstTime = (screamId) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
-
-  axios
-    .get(`/scream/${screamId}`)
-    .then((res) => {
-      dispatch({
-        type: SET_SCREAM,
-        payload: res.data,
-      });
-      dispatch({ type: OPEN_SCREAM });
-
-      dispatch({ type: STOP_LOADING_UI });
-
-      const { lat, long } = res.data;
-      dispatch((window.location = "#" + lat + "#" + long));
-    })
-
-    .catch((err) => console.log(err));
 };
 
 export const closeScream = () => (dispatch) => {

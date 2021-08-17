@@ -31,12 +31,6 @@ export const SET_COMMENT = "SET_COMMENT";
 
 export const DELETE_COMMENT = "DELETE_COMMENT";
 
-export const ADD_ALL_COMMENTS = "ADD_ALL_COMMENTS";
-export const SET_ALL_COMMENTS = "SET_ALL_COMMENTS";
-
-export const ADD_ALL_LIKES = "ADD_ALL_LIKES";
-export const SET_ALL_LIKES = "SET_ALL_LIKES";
-
 export const LOADING_PROJECTS_DATA = "LOADING_PROJECTS_DATA";
 
 export const SET_PROJECTS = "SET_PROJECTS";

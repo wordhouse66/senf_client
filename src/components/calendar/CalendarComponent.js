@@ -10,6 +10,8 @@ import PropTypes from "prop-types";
 // Redux stuff
 import { connect } from "react-redux";
 
+import firebase from "firebase/app";
+import "firebase/firestore";
 import "./Fullcalendar.css";
 
 class CalendarComponent extends React.Component {
@@ -55,7 +57,33 @@ class CalendarComponent extends React.Component {
     });
   }
   handleEventClick = ({ event, el }) => {
-    this.props.openScream(event.id);
+    const screamId = event.id;
+    this.fetchDataScream(screamId);
+  };
+
+  fetchDataScream = async (screamId) => {
+    const db = firebase.firestore();
+    const ref = await db.collection("screams").doc(screamId).get();
+    const commentsRef = await db
+      .collection("comments")
+      .where("screamId", "==", screamId)
+      .orderBy("createdAt", "desc")
+      .get();
+
+    if (!ref.exists) {
+      console.log("No such document!");
+    } else {
+      const scream = ref.data();
+      scream.id = ref.id;
+      scream.comments = [];
+
+      commentsRef.forEach((doc) =>
+        scream.comments.push({ ...doc.data(), id: doc.id })
+      );
+
+      this.props.openScream(screamId, scream);
+      window.location = "#" + scream.lat + "#" + scream.long;
+    }
   };
 
   render() {

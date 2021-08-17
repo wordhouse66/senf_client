@@ -6,11 +6,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
   getScreams,
-  getallComments,
-  getallLikes,
   getProjects,
   closeScream,
-  openScreamFirstTime,
+  openScream,
   openProject,
   closeProject,
 } from "../redux/actions/dataActions";
@@ -36,6 +34,9 @@ import { AllIdeasPage } from "../mainComponents/Ideas/AllIdeasPage";
 import { ProjectsPage } from "../mainComponents/Projects/ProjectsPage";
 import ScreamDialog from "../components/scream/ScreamDialog";
 import ProjectDialog from "../mainComponents/Projects/projectComponents/ProjectDialog";
+
+import firebase from "firebase/app";
+import "firebase/firestore";
 const cookies = new Cookies();
 
 const styles = {};
@@ -122,7 +123,7 @@ export class home extends Component {
       if (screamId.indexOf("_") > 0) {
         this.props.openProject(screamId);
       } else {
-        this.props.openScreamFirstTime(screamId);
+        this.fetchDataScream(screamId);
       }
       this.setState({ screamIdParam: screamId });
 
@@ -167,6 +168,31 @@ export class home extends Component {
       });
     }
   }
+
+  fetchDataScream = async (screamId) => {
+    const db = firebase.firestore();
+    const ref = await db.collection("screams").doc(screamId).get();
+    const commentsRef = await db
+      .collection("comments")
+      .where("screamId", "==", screamId)
+      .orderBy("createdAt", "desc")
+      .get();
+
+    if (!ref.exists) {
+      console.log("No such document!");
+    } else {
+      const scream = ref.data();
+      scream.id = ref.id;
+      scream.comments = [];
+
+      commentsRef.forEach((doc) =>
+        scream.comments.push({ ...doc.data(), id: doc.id })
+      );
+
+      this.props.openScream(screamId, scream);
+      window.location = "#" + scream.lat + "#" + scream.long;
+    }
+  };
 
   componentWillUnmount() {
     if (!isMobileOnly) {
@@ -228,9 +254,6 @@ export class home extends Component {
         left: 0,
         behavior: "smooth",
       });
-
-      this.props.getallComments();
-      this.props.getallLikes();
     }
   };
 
@@ -548,7 +571,7 @@ export class home extends Component {
       if (screamId.indexOf("_") > 0) {
         this.props.openProject(screamId);
       } else {
-        this.props.openScreamFirstTime(screamId);
+        this.fetchDataScream(screamId);
       }
       this.setState({ screamIdParam: screamId });
     }
@@ -1232,15 +1255,13 @@ home.propTypes = {
   getScreams: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
 
-  getallComments: PropTypes.func.isRequired,
-  getallLikes: PropTypes.func.isRequired,
   openDialog: PropTypes.bool,
 
   getProjects: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired,
 
   closeScream: PropTypes.func.isRequired,
-  openScreamFirstTime: PropTypes.func.isRequired,
+  openScream: PropTypes.func.isRequired,
   openProject: PropTypes.func.isRequired,
   closeProject: PropTypes.func.isRequired,
 };
@@ -1248,15 +1269,10 @@ home.propTypes = {
 const mapActionsToProps = {
   logoutUser,
   getScreams,
-
-  getallComments,
-  getallLikes,
-
   clearErrors,
-
   getProjects,
   closeScream,
-  openScreamFirstTime,
+  openScream,
   openProject,
   closeProject,
 };

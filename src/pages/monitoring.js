@@ -7,11 +7,9 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { connect } from "react-redux";
 import {
   getAllFullScreams,
-  getallComments,
-  getallLikes,
   getProjects,
   closeScream,
-  openScreamFirstTime,
+  openScream,
   openProject,
   closeProject,
 } from "../redux/actions/dataActions";
@@ -142,60 +140,6 @@ export class monitoring extends Component {
       top: 0,
       left: 0,
     });
-    const screamId = this.props.match.params.screamId;
-
-    if (
-      screamId &&
-      (cookies.get("Cookie_settings") === "all" ||
-        cookies.get("Cookie_settings") === "minimum")
-    ) {
-      if (screamId.indexOf("_") > 0) {
-        this.props.openProject(screamId);
-      } else {
-        this.props.openScreamFirstTime(screamId);
-      }
-      this.setState({ screamIdParam: screamId });
-
-      if (window.location.pathname === "/projects") {
-        this.handleClick(2);
-      }
-    } else {
-      setTimeout(() => {
-        if (!isMobileOnly) {
-          this.setState({
-            viewport: {
-              latitude: 50.95,
-              longitude: 6.9503,
-              zoom: 11.5,
-              transitionDuration: 4000,
-              pitch: 30,
-              bearing: 0,
-            },
-          });
-        }
-      }, 3000);
-    }
-
-    if (!isMobileOnly) {
-      window.addEventListener("popstate", this.handleOnUrlChange, false);
-    }
-
-    if (
-      cookies.get("Cookie_settings") !== "all" &&
-      cookies.get("Cookie_settings") !== "minimum" &&
-      !isMobileOnly
-    ) {
-      this.setState({ openInfoPageDesktop: true });
-      this.handleOpenInfoPageDesktop();
-    } else if (
-      (cookies.get("Cookie_settings") === "all" ||
-        cookies.get("Cookie_settings") === "minimum") &&
-      !isMobileOnly
-    ) {
-      this.setState({
-        cookiesSetDesktop: true,
-      });
-    }
   }
 
   componentWillUnmount() {
@@ -250,17 +194,6 @@ export class monitoring extends Component {
 
     if (order === 2) {
       window.history.pushState(null, null, "/projects");
-    }
-
-    if (order === 3) {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: "smooth",
-      });
-
-      this.props.getallComments();
-      this.props.getallLikes();
     }
   };
 
@@ -567,27 +500,6 @@ export class monitoring extends Component {
     });
 
     this.props.closeScream();
-  };
-
-  handleOpenInfoPageDesktop = () => {
-    this.setState({ openInfoPageDesktop: true });
-  };
-  handleCloseInfoPageDesktop = () => {
-    this.setState({ openInfoPageDesktop: false });
-
-    const screamId = this.props.match.params.screamId;
-
-    if (screamId) {
-      if (screamId.indexOf("_") > 0) {
-        this.props.openProject(screamId);
-      } else {
-        this.props.openScreamFirstTime(screamId);
-      }
-      this.setState({ screamIdParam: screamId });
-    }
-    if (window.location.pathname === "/projects") {
-      this.handleClick(2);
-    }
   };
 
   handleCookiesDesktop = () => {
@@ -1320,16 +1232,13 @@ monitoring.propTypes = {
 
   getAllFullScreams: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
-
-  getallComments: PropTypes.func.isRequired,
-  getallLikes: PropTypes.func.isRequired,
   openDialog: PropTypes.bool,
 
   getProjects: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired,
 
   closeScream: PropTypes.func.isRequired,
-  openScreamFirstTime: PropTypes.func.isRequired,
+  openScream: PropTypes.func.isRequired,
   openProject: PropTypes.func.isRequired,
   closeProject: PropTypes.func.isRequired,
 };
@@ -1337,15 +1246,11 @@ monitoring.propTypes = {
 const mapActionsToProps = {
   logoutUser,
   getAllFullScreams,
-
-  getallComments,
-  getallLikes,
-
   clearErrors,
 
   getProjects,
   closeScream,
-  openScreamFirstTime,
+  openScream,
   openProject,
   closeProject,
 };
