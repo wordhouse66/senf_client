@@ -45,9 +45,7 @@ const InsightsPage = ({ order }) => {
 
   const fetchDataLikes = async () => {
     const ref = await db.collection("likes").orderBy("createdAt", "desc").get();
-
     const likesLength = ref.size;
-
     setLikesLength(likesLength);
   };
 

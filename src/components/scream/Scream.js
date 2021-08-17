@@ -29,6 +29,9 @@ import {
   openProject,
 } from "../../redux/actions/dataActions";
 
+import firebase from "firebase/app";
+import "firebase/firestore";
+
 const styles = {
   gradient: {
     width: "100%",
@@ -155,8 +158,39 @@ class Scream extends Component {
     cardHeight: {},
   };
 
-  pushScreamId = (screamId) => {
-    this.props.openScream(screamId);
+  fetchDataScream = async (screamId) => {
+    const db = firebase.firestore();
+
+    const ref = db.collection("screams").doc(screamId);
+    const commentsRef = db
+      .collection("comments")
+      .where("screamId", "==", screamId)
+      .orderBy("createdAt", "desc");
+
+    const doc = await ref.get();
+    const commentsDoc = await commentsRef.get();
+    if (!doc.exists) {
+      console.log("No such document!");
+    } else {
+      const scream = doc.data();
+      scream.id = doc.id;
+      scream.comments = [];
+
+      if (!commentsDoc.exists) {
+        console.log("No comments found!");
+      } else {
+        commentsDoc.docs.forEach((doc) => {
+          const commentData = {
+            ...doc.data(),
+            id: doc.id,
+          };
+          scream.comments.push(commentData);
+        });
+      }
+
+      this.props.openScream(screamId, scream);
+      window.location = "#" + scream.lat + "#" + scream.long;
+    }
   };
 
   openProject = (project) => {
@@ -308,7 +342,7 @@ class Scream extends Component {
           <br />
           {projectTitle}
           <button
-            onClick={() => this.pushScreamId(screamId)}
+            onClick={() => this.fetchDataScream(screamId)}
             className="buttonExpand ripple"
           ></button>
           {/* <ScreamDialog

@@ -233,27 +233,13 @@ export const closeMonitoringScream = () => (dispatch) => {
   window.history.pushState(null, null, "/monitoring");
 };
 
-export const openScream = (screamId) => (dispatch) => {
+export const openScream = (screamId, scream) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   dispatch({ type: OPEN_SCREAM });
   const newPath = `/${screamId}`;
   window.history.pushState(null, null, newPath);
-
-  axios
-    .get(`/scream/${screamId}`)
-    .then((res) => {
-      dispatch({
-        type: SET_SCREAM,
-        payload: res.data,
-      });
-
-      dispatch({ type: STOP_LOADING_UI });
-
-      const { lat, long } = res.data;
-      dispatch((window.location = "#" + lat + "#" + long));
-    })
-
-    .catch((err) => console.log(err));
+  dispatch({ type: SET_SCREAM, payload: scream });
+  dispatch({ type: STOP_LOADING_UI });
 };
 
 export const openScreamFirstTime = (screamId) => (dispatch) => {
