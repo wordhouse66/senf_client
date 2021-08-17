@@ -35,8 +35,6 @@ import { ProjectsPage } from "../mainComponents/Projects/ProjectsPage";
 import ScreamDialog from "../components/scream/ScreamDialog";
 import ProjectDialog from "../mainComponents/Projects/projectComponents/ProjectDialog";
 
-import firebase from "firebase/app";
-import "firebase/firestore";
 const cookies = new Cookies();
 
 const styles = {};
@@ -123,7 +121,7 @@ export class home extends Component {
       if (screamId.indexOf("_") > 0) {
         this.props.openProject(screamId);
       } else {
-        this.fetchDataScream(screamId);
+        this.props.openScream(screamId);
       }
       this.setState({ screamIdParam: screamId });
 
@@ -168,31 +166,6 @@ export class home extends Component {
       });
     }
   }
-
-  fetchDataScream = async (screamId) => {
-    const db = firebase.firestore();
-    const ref = await db.collection("screams").doc(screamId).get();
-    const commentsRef = await db
-      .collection("comments")
-      .where("screamId", "==", screamId)
-      .orderBy("createdAt", "desc")
-      .get();
-
-    if (!ref.exists) {
-      console.log("No such document!");
-    } else {
-      const scream = ref.data();
-      scream.id = ref.id;
-      scream.comments = [];
-
-      commentsRef.forEach((doc) =>
-        scream.comments.push({ ...doc.data(), id: doc.id })
-      );
-
-      this.props.openScream(screamId, scream);
-      window.location = "#" + scream.lat + "#" + scream.long;
-    }
-  };
 
   componentWillUnmount() {
     if (!isMobileOnly) {
@@ -571,7 +544,7 @@ export class home extends Component {
       if (screamId.indexOf("_") > 0) {
         this.props.openProject(screamId);
       } else {
-        this.fetchDataScream(screamId);
+        this.props.openScream(screamId);
       }
       this.setState({ screamIdParam: screamId });
     }

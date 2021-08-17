@@ -8,8 +8,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { connect } from "react-redux";
 import { editUserDetails } from "../../redux/actions/userActions";
 
-import firebase from "firebase/app";
-import "firebase/firestore";
 import { openScream } from "../../redux/actions/dataActions";
 
 // Icons
@@ -186,29 +184,8 @@ class Geofilter extends Component {
     }
   }
 
-  fetchDataScream = async (screamId) => {
-    const db = firebase.firestore();
-    const ref = await db.collection("screams").doc(screamId).get();
-    const commentsRef = await db
-      .collection("comments")
-      .where("screamId", "==", screamId)
-      .orderBy("createdAt", "desc")
-      .get();
-
-    if (!ref.exists) {
-      console.log("No such document!");
-    } else {
-      const scream = ref.data();
-      scream.id = ref.id;
-      scream.comments = [];
-
-      commentsRef.forEach((doc) =>
-        scream.comments.push({ ...doc.data(), id: doc.id })
-      );
-
-      this.props.openScream(screamId, scream);
-      window.location = "#" + scream.lat + "#" + scream.long;
-    }
+  fetchDataScream = (screamId) => {
+    this.props.openScream(screamId);
   };
 
   // handleChange = (event) => {

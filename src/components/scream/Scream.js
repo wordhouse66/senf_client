@@ -29,9 +29,6 @@ import {
   openProject,
 } from "../../redux/actions/dataActions";
 
-import firebase from "firebase/app";
-import "firebase/firestore";
-
 const styles = {
   gradient: {
     width: "100%",
@@ -158,29 +155,8 @@ class Scream extends Component {
     cardHeight: {},
   };
 
-  fetchDataScream = async (screamId) => {
-    const db = firebase.firestore();
-    const ref = await db.collection("screams").doc(screamId).get();
-    const commentsRef = await db
-      .collection("comments")
-      .where("screamId", "==", screamId)
-      .orderBy("createdAt", "desc")
-      .get();
-
-    if (!ref.exists) {
-      console.log("No such document!");
-    } else {
-      const scream = ref.data();
-      scream.id = ref.id;
-      scream.comments = [];
-
-      commentsRef.forEach((doc) =>
-        scream.comments.push({ ...doc.data(), id: doc.id })
-      );
-
-      this.props.openScream(screamId, scream);
-      window.location = "#" + scream.lat + "#" + scream.long;
-    }
+  fetchDataScream = (screamId) => {
+    this.props.openScream(screamId);
   };
 
   openProject = (project) => {

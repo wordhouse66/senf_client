@@ -6,8 +6,6 @@ import PropTypes from "prop-types";
 
 import { isMobileOnly } from "react-device-detect";
 
-import firebase from "firebase/app";
-import "firebase/firestore";
 import { openScream } from "../../redux/actions/dataActions";
 
 import { connect } from "react-redux";
@@ -180,29 +178,8 @@ class MapDesktop extends Component {
     }
   }
 
-  fetchDataScream = async (screamId) => {
-    const db = firebase.firestore();
-    const ref = await db.collection("screams").doc(screamId).get();
-    const commentsRef = await db
-      .collection("comments")
-      .where("screamId", "==", screamId)
-      .orderBy("createdAt", "desc")
-      .get();
-
-    if (!ref.exists) {
-      console.log("No such document!");
-    } else {
-      const scream = ref.data();
-      scream.id = ref.id;
-      scream.comments = [];
-
-      commentsRef.forEach((doc) =>
-        scream.comments.push({ ...doc.data(), id: doc.id })
-      );
-
-      this.props.openScream(screamId, scream);
-      window.location = "#" + scream.lat + "#" + scream.long;
-    }
+  fetchDataScream = (screamId) => {
+    this.props.openScream(screamId);
   };
 
   render() {

@@ -1,5 +1,8 @@
 /** @format */
 
+import firebase from "firebase/app";
+import "firebase/firestore";
+
 import {
   SET_SCREAMS,
   LOADING_DATA,
@@ -195,14 +198,42 @@ export const closeMonitoringScream = () => (dispatch) => {
   window.history.pushState(null, null, "/monitoring");
 };
 
-export const openScream = (screamId, scream) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
-  dispatch({ type: OPEN_SCREAM });
-  const newPath = `/${screamId}`;
-  window.history.pushState(null, null, newPath);
-  dispatch({ type: SET_SCREAM, payload: scream });
-  dispatch({ type: STOP_LOADING_UI });
+// redux action that returns async function
+export const myAction = (payload) => async (dispatch) => {
+  // your action
 };
+export const openScream = (screamId) => async (dispatch) => {
+  const db = firebase.firestore();
+  const ref = await db.collection("screams").doc(screamId).get();
+  const commentsRef = await db
+    .collection("comments")
+    .where("screamId", "==", screamId)
+    .orderBy("createdAt", "desc")
+    .get();
+
+  if (!ref.exists) {
+    console.log("No such document!");
+  } else {
+    const scream = ref.data();
+    scream.id = ref.id;
+    scream.comments = [];
+
+    commentsRef.forEach((doc) =>
+      scream.comments.push({ ...doc.data(), id: doc.id })
+    );
+
+    window.location = "#" + scream.lat + "#" + scream.long;
+
+    dispatch({ type: LOADING_UI });
+    dispatch({ type: OPEN_SCREAM });
+    const newPath = `/${screamId}`;
+    window.history.pushState(null, null, newPath);
+    dispatch({ type: SET_SCREAM, payload: scream });
+    dispatch({ type: STOP_LOADING_UI });
+  }
+};
+
+export const openScream1 = (screamId, scream) => (dispatch) => {};
 
 export const closeScream = () => (dispatch) => {
   dispatch({ type: CLOSE_SCREAM });
@@ -213,22 +244,6 @@ export const closeScream = () => (dispatch) => {
   }, 1000);
 };
 
-export const getScream = (screamId, coordinates) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
-
-  axios
-    .get(`/scream/${screamId}`)
-    .then((res) => {
-      dispatch({
-        type: SET_SCREAM,
-        payload: res.data,
-      });
-      dispatch({ type: STOP_LOADING_UI });
-      dispatch((window.location = "#" + coordinates));
-    })
-
-    .catch((err) => console.log(err));
-};
 // Post a scream
 export const postScream = (newScream, history) => (dispatch) => {
   dispatch({ type: LOADING_UI });
