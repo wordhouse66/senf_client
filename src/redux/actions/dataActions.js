@@ -24,10 +24,6 @@ import {
   LOADING_PROJECTS_DATA,
   SET_PROJECTS,
   SET_PROJECT_SCREAMS,
-  LOADING_PROJECT_SCREAMS,
-  LOADING_MY_SCREAMS,
-  SET_MY_SCREAMS,
-  SUBMIT_CHAT,
   OPEN_SCREAM,
   CLOSE_SCREAM,
   OPEN_PROJECT,
@@ -40,168 +36,121 @@ import {
 } from "../types";
 import axios from "axios";
 
-// Get all Projects
-export const getProjects = () => (dispatch) => {
+// Get all projects
+export const getProjects = () => async (dispatch) => {
   dispatch({ type: LOADING_PROJECTS_DATA });
-  axios
-    .get("/projects")
-    .then((res) => {
-      dispatch({
-        type: SET_PROJECTS,
-        payload: res.data,
-      });
-    })
-    .catch((err) => {
-      dispatch({
-        type: SET_PROJECTS,
-        payload: [],
-      });
-    });
+
+  const db = firebase.firestore();
+  const ref = await db
+    .collection("projects")
+    .orderBy("createdAt", "desc")
+    .get();
+
+  const projects = [];
+  ref.docs.forEach((doc) => {
+    const docData = {
+      project: doc.id,
+      title: doc.data().title,
+      // description: doc.data().description,
+      owner: doc.data().owner,
+      createdAt: doc.data().createdAt,
+      imgUrl: doc.data().imgUrl,
+      startDate: doc.data().startDate,
+      endDate: doc.data().endDate,
+      status: doc.data().status,
+      geoData: doc.data().geoData,
+      centerLat: doc.data().centerLat,
+      centerLong: doc.data().centerLong,
+      zoom: doc.data().zoom,
+      projectId: doc.id,
+      // weblink: doc.data().weblink,
+    };
+
+    projects.push(docData);
+  });
+
+  dispatch({
+    type: SET_PROJECTS,
+    payload: projects,
+  });
 };
 
-// Get all screams for project
-export const getProjectScreams = (project) => (dispatch) => {
-  dispatch({ type: LOADING_PROJECT_SCREAMS });
-
-  axios
-    .get(`/project/${project.id}`)
-    .then((res) => {
-      dispatch({
-        type: SET_PROJECT_SCREAMS,
-        payload: res.data,
-      });
-    })
-    .catch((err) => {
-      dispatch({
-        type: SET_PROJECT_SCREAMS,
-        payload: [],
-      });
-    });
-};
-
-// Get my Screams
-export const getMyScreams = (userHandle) => (dispatch) => {
-  dispatch({ type: LOADING_MY_SCREAMS });
-  axios
-    .get(`/screams/${userHandle}`)
-    .then((res) => {
-      dispatch({
-        type: SET_MY_SCREAMS,
-        payload: res.data,
-      });
-    })
-    .catch((err) => {
-      dispatch({
-        type: SET_MY_SCREAMS,
-        payload: [],
-      });
-    });
-};
-
-// Get all screams
-export const getScreams = () => (dispatch) => {
-  dispatch({ type: LOADING_DATA });
-  console.time("Time this");
-  axios
-    .get("/screamsFrontend")
-    .then((res) => {
-      dispatch({
-        type: SET_SCREAMS,
-        payload: res.data,
-      });
-    })
-    .catch((err) => {
-      dispatch({
-        type: SET_SCREAMS,
-        payload: [],
-      });
-    });
-  console.timeEnd("Time this");
-};
-
-export const openProject = (project) => (dispatch) => {
+// Open a project
+export const openProject = (project) => async (dispatch) => {
   dispatch({ type: LOADING_UI });
+  const db = firebase.firestore();
+  const ref = await db.collection("projects").doc(project).get();
 
-  axios
-    .get(`/projectGet/${project}`)
-    .then((res) => {
-      dispatch({
-        type: SET_PROJECT_SCREAMS,
-        payload: res.data,
-      });
-      dispatch({ type: OPEN_PROJECT });
-      dispatch({ type: STOP_LOADING_UI });
+  const screamsRef = await db
+    .collection("screams")
+    .where("project", "==", project)
+    .orderBy("createdAt", "desc")
+    .get();
 
-      // const { lat, long } = res.data;
-      // dispatch((window.location = "#" + lat + "#" + long));
-    })
+  if (!ref.exists) {
+    console.log("No such document!");
+  } else {
+    const project = ref.data();
 
-    .catch((err) => console.log(err));
+    project.id = ref.id;
+    project.screams = [];
 
-  // dispatch({ type: LOADING_PROJECT_SCREAMS });
-  // dispatch({ type: OPEN_PROJECT });
+    screamsRef.docs.forEach((doc) =>
+      project.screams.push({ ...doc.data(), id: doc.id })
+    );
 
-  // axios
-  //   .get(`/projectGet/${projectId}`)
-  //   .then((res) => {
-  //     dispatch({
-  //       type: SET_PROJECT_SCREAMS,
-  //       payload: res.data,
-  //     });
-  //     console.log(res);
-  //   })
-  //   .catch((err) => {
-  //     dispatch({
-  //       type: SET_PROJECT_SCREAMS,
-  //       payload: [],
-  //     });
-  //   });
+    const newPath = `/${project.id}`;
+    window.history.pushState(null, null, newPath);
+    dispatch({ type: SET_PROJECT_SCREAMS, payload: project });
+    dispatch({ type: OPEN_PROJECT });
+    dispatch({ type: STOP_LOADING_UI });
+  }
 };
 
 export const closeProject = () => (dispatch) => {
   dispatch({ type: CLOSE_PROJECT });
   window.history.pushState(null, null, "/");
-  // window.scrollTo({
-  //   top: 0,
-  //   left: 0,
-  //   behavior: "smooth",
-  // });
+
   setTimeout(() => {
     document.body.style.overflow = "scroll";
   }, 1000);
 };
 
-export const openMonitoringScream = (screamId) => (dispatch) => {
-  // const newPath = `/monitoring/${screamId}`;
-  // window.history.pushState(null, null, newPath);
+// Get all ideas
+export const getScreams = () => async (dispatch) => {
+  dispatch({ type: LOADING_DATA });
 
-  dispatch({ type: LOADING_UI });
+  const db = firebase.firestore();
+  const ref = await db.collection("screams").orderBy("createdAt", "desc").get();
 
-  dispatch({ type: OPEN_MONITORING_SCREAM });
+  const screams = [];
+  ref.docs.forEach((doc) => {
+    const docData = {
+      screamId: doc.id,
+      lat: doc.data().lat,
+      long: doc.data().long,
+      title: doc.data().title,
+      body: doc.data().body.substr(0, 170),
+      createdAt: doc.data().createdAt,
+      commentCount: doc.data().commentCount,
+      likeCount: doc.data().likeCount,
+      status: doc.data().status,
+      Thema: doc.data().Thema,
+      Stadtteil: doc.data().Stadtteil,
+      project: doc.data().project,
+      projectId: doc.data().project,
+    };
 
-  axios
-    .get(`/scream/${screamId}`)
-    .then((res) => {
-      dispatch({
-        type: SET_SCREAM,
-        payload: res.data,
-      });
+    screams.push(docData);
+  });
 
-      dispatch({ type: STOP_LOADING_UI });
-    })
-
-    .catch((err) => console.log(err));
+  dispatch({
+    type: SET_SCREAMS,
+    payload: screams,
+  });
 };
 
-export const closeMonitoringScream = () => (dispatch) => {
-  dispatch({ type: CLOSE_MONITORING_SCREAM });
-  window.history.pushState(null, null, "/monitoring");
-};
-
-// redux action that returns async function
-export const myAction = (payload) => async (dispatch) => {
-  // your action
-};
+// Open an idea
 export const openScream = (screamId) => async (dispatch) => {
   const db = firebase.firestore();
   const ref = await db.collection("screams").doc(screamId).get();
@@ -233,8 +182,6 @@ export const openScream = (screamId) => async (dispatch) => {
   }
 };
 
-export const openScream1 = (screamId, scream) => (dispatch) => {};
-
 export const closeScream = () => (dispatch) => {
   dispatch({ type: CLOSE_SCREAM });
   window.history.pushState(null, null, "/");
@@ -244,9 +191,35 @@ export const closeScream = () => (dispatch) => {
   }, 1000);
 };
 
-// Post a scream
+// Post an idea
 export const postScream = (newScream, history) => (dispatch) => {
   dispatch({ type: LOADING_UI });
+
+  // if (newScream.title.trim() === "") {
+  //   return response.status(400).json({ title: " " });
+  // }
+
+  // if (newScream.body.trim() === "") {
+  //   return response.status(400).json({ body: "Beschreibung fehlt" });
+  // }
+
+  // const newScreamData = {
+  //   locationHeader: newScream.locationHeader,
+  //   district: newScream.district,
+  //   title: newScream.title,
+  //   lat: newScream.lat,
+  //   long: newScream.long,
+  //   body: newScream.body,
+  //   userHandle: user.handle,
+  //   sex: user.sex,
+  //   age: user.age,
+  //   createdAt: new Date().toISOString(),
+  //   likeCount: 0,
+  //   commentCount: 0,
+  //   status: "None",
+  //   project: newScream.project,
+  // };
+
   axios
     .post("/postScream", newScream)
     .then((res) => {
@@ -281,7 +254,8 @@ export const postScream = (newScream, history) => (dispatch) => {
     });
 };
 
-export const editScream = (editScream, history) => (dispatch) => {
+// Edit your idea
+export const editScream = (editScream) => (dispatch) => {
   dispatch({ type: LOADING_UI });
 
   const screamId = editScream.screamId;
@@ -306,7 +280,8 @@ export const editScream = (editScream, history) => (dispatch) => {
     });
 };
 
-export const adminEditScream = (editScream, history) => (dispatch) => {
+// Edit an idea as a admin
+export const adminEditScream = (editScream) => (dispatch) => {
   dispatch({ type: LOADING_UI });
 
   const screamId = editScream.screamId;
@@ -357,46 +332,7 @@ export const unlikeScream = (screamId) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const deleteScream = (screamId) => (dispatch) => {
-  axios
-    .delete(`/scream/${screamId}`)
-    .then(() => {
-      dispatch({
-        type: DELETE_SCREAM,
-        payload: screamId,
-      });
-    })
-
-    .catch((err) => console.log(err))
-    .finally(() => {
-      setTimeout(() => {
-        window.history.pushState(null, null, "/");
-        window.location.reload(false);
-        dispatch(clearErrors());
-      }, 10);
-    });
-};
-
-// Get all comments
-export const getComments = () => (dispatch) => {
-  console.log("getComments...");
-  dispatch({ type: LOADING_DATA });
-  axios
-    .get("/comments")
-    .then((res) => {
-      console.log("getComments", res);
-      dispatch({
-        type: SET_COMMENTS,
-        payload: res.data,
-      });
-    })
-    .catch((err) => {
-      dispatch({
-        type: SET_COMMENTS,
-        payload: [],
-      });
-    });
-};
+//get the data for one comment
 export const getComment = (commentId) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
@@ -435,6 +371,7 @@ export const submitComment = (screamId, commentData) => (dispatch) => {
     });
 };
 
+//delete your comment
 export const deleteComment = (commentId) => (dispatch) => {
   axios
     .delete(`/comment/${commentId}`)
@@ -448,8 +385,54 @@ export const deleteComment = (commentId) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
+export const deleteScream = (screamId) => (dispatch) => {
+  axios
+    .delete(`/scream/${screamId}`)
+    .then(() => {
+      dispatch({
+        type: DELETE_SCREAM,
+        payload: screamId,
+      });
+    })
+
+    .catch((err) => console.log(err))
+    .finally(() => {
+      setTimeout(() => {
+        window.history.pushState(null, null, "/");
+        window.location.reload(false);
+        dispatch(clearErrors());
+      }, 10);
+    });
+};
+
+//Open a scream on the monitoring board
+
+export const openMonitoringScream = (screamId) => async (dispatch) => {
+  const db = firebase.firestore();
+  const ref = await db.collection("screams").doc(screamId).get();
+
+  if (!ref.exists) {
+    console.log("No such document!");
+  } else {
+    const scream = ref.data();
+    scream.id = ref.id;
+
+    dispatch({ type: LOADING_UI });
+    dispatch({ type: OPEN_MONITORING_SCREAM });
+
+    // const newPath = `/${screamId}`;
+    // window.history.pushState(null, null, newPath);
+    dispatch({ type: SET_SCREAM, payload: scream });
+    dispatch({ type: STOP_LOADING_UI });
+  }
+};
+
+export const closeMonitoringScream = () => (dispatch) => {
+  dispatch({ type: CLOSE_MONITORING_SCREAM });
+  window.history.pushState(null, null, "/monitoring");
+};
+
 export const getUserData = (userHandle) => (dispatch) => {
-  // dispatch({ type: LOADING_DATA });
   axios
     .get(`/user/${userHandle}`)
     .then((res) => {
@@ -463,50 +446,29 @@ export const getUserData = (userHandle) => (dispatch) => {
     })
 
     .catch((err) => console.log(err));
-  // .catch(() => {
-  //   dispatch({
-  //     type: SET_SCREAMS,
-  //     payload: null,
-  //   });
-  // });
 };
 
-export const submitChat = (project, chatData) => (dispatch) => {
-  console.log(project, chatData);
-  axios
-    .post(`/project/${project}/chatData`, chatData)
-    .then((res) => {
-      dispatch({
-        type: SUBMIT_CHAT,
-        payload: res.data,
-      });
-      dispatch(clearErrors());
-    })
-    .catch((err) => {
-      dispatch({
-        type: SET_ERRORS,
-        payload: err.response.data,
-      });
-    });
-};
-
-// Get all screams
-export const getAllFullScreams = () => (dispatch) => {
+// Get all screams with full data
+export const getAllFullScreams = () => async (dispatch) => {
   dispatch({ type: LOADING_DATA });
-  axios
-    .get("/fullscreams")
-    .then((res) => {
-      dispatch({
-        type: SET_FULL_SCREAMS,
-        payload: res.data,
-      });
-    })
-    .catch((err) => {
-      dispatch({
-        type: SET_FULL_SCREAMS,
-        payload: [],
-      });
-    });
+
+  const db = firebase.firestore();
+  const ref = await db.collection("screams").orderBy("createdAt", "desc").get();
+
+  const screams = [];
+  ref.docs.forEach((doc) => {
+    const docData = {
+      screamId: doc.id,
+      ...doc.data(),
+    };
+
+    screams.push(docData);
+  });
+
+  dispatch({
+    type: SET_FULL_SCREAMS,
+    payload: screams,
+  });
 };
 
 export const clearErrors = () => (dispatch) => {

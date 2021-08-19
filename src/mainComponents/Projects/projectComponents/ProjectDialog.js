@@ -22,7 +22,6 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import { connect } from "react-redux";
 import {
   clearErrors,
-  getProjectScreams,
   closeScream,
   closeProject,
 } from "../../../redux/actions/dataActions";
@@ -1041,7 +1040,6 @@ class ProjectDialog extends Component {
 
 ProjectDialog.propTypes = {
   clearErrors: PropTypes.func.isRequired,
-  getProjectScreams: PropTypes.func.isRequired,
   closeScream: PropTypes.func.isRequired,
   openProject: PropTypes.func.isRequired,
   closeProject: PropTypes.func.isRequired,
@@ -1056,7 +1054,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapActionsToProps = {
-  getProjectScreams,
   clearErrors,
   closeScream,
   closeProject,

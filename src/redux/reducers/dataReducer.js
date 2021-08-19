@@ -1,7 +1,6 @@
 /** @format */
 
 import {
-  ADD_SCREAMS,
   SET_SCREAMS,
   LIKE_SCREAM,
   UNLIKE_SCREAM,
@@ -18,10 +17,6 @@ import {
   LOADING_PROJECTS_DATA,
   SET_PROJECTS,
   SET_PROJECT_SCREAMS,
-  LOADING_PROJECT_SCREAMS,
-  SET_MY_SCREAMS,
-  LOADING_MY_SCREAMS,
-  SUBMIT_CHAT,
   SET_SCREAM_USER,
   SET_FULL_SCREAMS,
 } from "../types";
@@ -30,22 +25,13 @@ const initialState = {
   projects: [],
   projectScreams: [],
   loadingProjectScreams: false,
-
-  myScreams: [],
-  loadingMyScreams: false,
-
   screams: [],
   scream: {},
-
   comment: {},
-
   like: {},
-
   loading: false,
-
   loadingProjects: false,
   scream_user: {},
-
   full_screams: [],
 };
 
@@ -56,12 +42,7 @@ export default function (state = initialState, action) {
         ...state,
         loading: true,
       };
-    case ADD_SCREAMS:
-      return {
-        ...state,
-        screams: [...state.screams, ...action.payload],
-        loading: false,
-      };
+
     case SET_SCREAMS:
       return {
         ...state,
@@ -168,34 +149,6 @@ export default function (state = initialState, action) {
         project: action.payload,
         // projectScreams: action.payload,
         // loadingProjectScreams: false,
-      };
-
-    case LOADING_PROJECT_SCREAMS:
-      return {
-        ...state,
-        loadingProjectScreams: true,
-      };
-
-    case SET_MY_SCREAMS:
-      return {
-        ...state,
-        myScreams: action.payload,
-        loadingMyScreams: false,
-      };
-
-    case LOADING_MY_SCREAMS:
-      return {
-        ...state,
-        loadingMyScreams: true,
-      };
-
-    case SUBMIT_CHAT:
-      return {
-        ...state,
-        project: {
-          ...state.project,
-          chat: [action.payload, ...state.project.comments],
-        },
       };
 
     case SET_FULL_SCREAMS:

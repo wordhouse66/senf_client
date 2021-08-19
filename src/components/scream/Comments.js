@@ -7,11 +7,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 //REDUX STUFF
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  getComment,
-  getComments,
-  clearErrors,
-} from "../../redux/actions/dataActions";
+import { getComment, clearErrors } from "../../redux/actions/dataActions";
 
 //GET TIME TIMESTAMP
 import dayjs from "dayjs";
@@ -195,7 +191,6 @@ const mapStateToProps = (state) => ({
 
 const mapActionsToProps = {
   getComment,
-  getComments,
   clearErrors,
 };
 
