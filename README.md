@@ -9,7 +9,7 @@ The aim of this project is to strengthen participation of citizens in urban plan
 
 Ultimately, through this platform, we are attempting to establish a collaborative community-based environment in which citizens have a voice and organizations of any kind are empowered to be more participatory. Simultaneously, we see this environment as a space for people to get creative and connect in real life in order to collectively shape their own urban space.
 
-Since the beginning of 2021, we have been running this platform for the area of Cologne, Germany – and we see this expanding to any city and municipality.
+Since the beginning of 2021, we have been running this platform for the area of Cologne, Germany – and we see this expanding to any city and municipality. Btw: checkout/follow our [Instagram](https://www.instagram.com/senf.koeln/)
 
 This project was started by an amateur programmer, so please don't be too harsh about the current quality - let's level it up!
 
