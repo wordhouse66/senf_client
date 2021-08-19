@@ -33,14 +33,12 @@ const LikeButton = ({ screamId }) => {
       <img src={HandBorder} width="100%" alt="LikeIcon" />
     </MyButton>
   ) : likedScream() ? (
-    <MyButton onClick={() => dispatch(unlikeScream(screamId))}>
+    <MyButton onClick={() => dispatch(unlikeScream(screamId, user))}>
       <img src={HandFull} width="100%" alt="LikeIcon" />
       <WishNote />
     </MyButton>
   ) : (
-    <MyButton
-      onClick={() => dispatch(likeScream(screamId, user.credentials.handle))}
-    >
+    <MyButton onClick={() => dispatch(likeScream(screamId, user))}>
       <img src={HandBorder} width="100%" alt="LikeIcon" />
       <WishNote />
     </MyButton>
