@@ -9,7 +9,6 @@ import {
   LIKE_SCREAM,
   UNLIKE_SCREAM,
   DELETE_SCREAM,
-  SET_COMMENTS,
   SET_COMMENT,
   DELETE_COMMENT,
   SET_ERRORS,
@@ -308,7 +307,8 @@ export const adminEditScream = (editScream) => (dispatch) => {
 
 // Like a scream
 
-export const likeScream = (screamId) => (dispatch) => {
+export const likeScream = (screamId, user) => (dispatch) => {
+  console.log("user", user);
   axios
     .get(`/scream/${screamId}/like`)
     .then((res) => {
@@ -319,7 +319,7 @@ export const likeScream = (screamId) => (dispatch) => {
     })
     .catch((err) => console.log(err));
 };
-// Unlike a scream
+// Unlike an idea
 export const unlikeScream = (screamId) => (dispatch) => {
   axios
     .get(`/scream/${screamId}/unlike`)
@@ -347,7 +347,7 @@ export const getComment = (commentId) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-// Submit a comment
+// Submit a comment to an idea
 export const submitComment = (screamId, commentData) => (dispatch) => {
   axios
     .post(`/scream/${screamId}/comment`, commentData)
@@ -405,8 +405,7 @@ export const deleteScream = (screamId) => (dispatch) => {
     });
 };
 
-//Open a scream on the monitoring board
-
+//Open an idea on the monitoring board
 export const openMonitoringScream = (screamId) => async (dispatch) => {
   const db = firebase.firestore();
   const ref = await db.collection("screams").doc(screamId).get();
@@ -448,7 +447,7 @@ export const getUserData = (userHandle) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-// Get all screams with full data
+// Get all ideas with full data
 export const getAllFullScreams = () => async (dispatch) => {
   dispatch({ type: LOADING_DATA });
 
