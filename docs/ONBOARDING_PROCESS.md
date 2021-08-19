@@ -2,7 +2,7 @@
 
 # Onboarding
 
-1. Learn what this project is all about by reading the ABOUT section in README. If you have any questions about the project's scope, please reach out to tassilomorino within the Agileventures-Slack Channel or on LinkedIn.
+1. Learn what this project is all about by reading the ABOUT section in README. If you have any questions about the project's scope, please reach out to tassilomorino within the Agileventures-Slack Channel or on [LinkedIn](https://www.linkedin.com/in/tassilo-morino-468150162/).
 2. Join the project's Slack channel on [AgileVentures Slack](https://agileventures.slack.com/archives/C029UAAMRTL). There you can follow along in discussions and ask your questions, should you have any.
 3. Install the application on your localhost. See INSTALLATION INSTRUCTIONS section in the README for a step-by-step guide.
 4. We follow the agile approach to software development and would like you to follow these best practicies:
