@@ -33,7 +33,9 @@ import Arrow from "../../images/icons/arrow.png";
 
 // REDUX STUFF
 import { connect } from "react-redux";
-import { postScream, clearErrors } from "../../redux/actions/dataActions";
+import { postScream } from "../../redux/actions/screamActions";
+import { clearErrors } from "../../redux/actions/errorsActions";
+
 import { withRouter } from "react-router-dom";
 
 //GEOLOCATE

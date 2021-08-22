@@ -7,7 +7,8 @@ import { isMobileOnly } from "react-device-detect";
 
 // Redux stuff
 import { connect } from "react-redux";
-import { clearErrors } from "../../redux/actions/dataActions";
+import { clearErrors } from "../../redux/actions/errorsActions";
+
 import firebase from "firebase/app";
 import "firebase/firestore";
 

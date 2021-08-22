@@ -3,21 +3,15 @@
 import React, { Fragment, Component } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
-
-import { connect } from "react-redux";
-import {
-  getAllFullScreams,
-  getProjects,
-  closeScream,
-  openScream,
-  openProject,
-  closeProject,
-} from "../redux/actions/dataActions";
-
 import { isMobileOnly } from "react-device-detect";
 
-import { clearErrors } from "../redux/actions/dataActions";
+//Redux
+import { connect } from "react-redux";
+import { getAllFullScreams } from "../redux/actions/monitoringScreamActions";
+import { getProjects, closeProject } from "../redux/actions/projectActions";
+
 import { logoutUser } from "../redux/actions/userActions";
+import { clearErrors } from "../redux/actions/errorsActions";
 
 //ICONS
 import Sort from "../images/icons/sort.png";
@@ -1227,19 +1221,12 @@ export class monitoring extends Component {
 
 monitoring.propTypes = {
   classes: PropTypes.object.isRequired,
-
   user: PropTypes.object.isRequired,
-
   getAllFullScreams: PropTypes.func.isRequired,
   logoutUser: PropTypes.func.isRequired,
   openDialog: PropTypes.bool,
-
   getProjects: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired,
-
-  closeScream: PropTypes.func.isRequired,
-  openScream: PropTypes.func.isRequired,
-  openProject: PropTypes.func.isRequired,
   closeProject: PropTypes.func.isRequired,
 };
 
@@ -1247,11 +1234,7 @@ const mapActionsToProps = {
   logoutUser,
   getAllFullScreams,
   clearErrors,
-
   getProjects,
-  closeScream,
-  openScream,
-  openProject,
   closeProject,
 };
 

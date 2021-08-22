@@ -9,7 +9,7 @@ import Dialog from "@material-ui/core/Dialog";
 
 // Redux stuff
 import { connect } from "react-redux";
-import { clearErrors } from "../../redux/actions/dataActions";
+import { clearErrors } from "../../redux/actions/errorsActions";
 import { Link } from "react-router-dom";
 
 //LazyLoad

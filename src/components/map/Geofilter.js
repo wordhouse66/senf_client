@@ -8,7 +8,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { connect } from "react-redux";
 import { editUserDetails } from "../../redux/actions/userActions";
 
-import { openScream } from "../../redux/actions/dataActions";
+import { openScream } from "../../redux/actions/screamActions";
 
 // Icons
 import Arrow from "../../images/icons/arrow.png";

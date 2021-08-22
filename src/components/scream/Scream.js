@@ -23,11 +23,9 @@ import ChatBorder from "../../images/icons/chat.png";
 // Redux
 import { connect } from "react-redux";
 
-import {
-  clearErrors,
-  openScream,
-  openProject,
-} from "../../redux/actions/dataActions";
+import { openScream } from "../../redux/actions/screamActions";
+
+import { openProject } from "../../redux/actions/projectActions";
 
 const styles = {
   gradient: {
@@ -339,7 +337,6 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = {
   openScream,
   openProject,
-  clearErrors,
 };
 
 export default connect(

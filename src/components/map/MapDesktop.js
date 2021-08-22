@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 import { isMobileOnly } from "react-device-detect";
 
-import { openScream } from "../../redux/actions/dataActions";
+import { openScream } from "../../redux/actions/screamActions";
 
 import { connect } from "react-redux";
 

@@ -20,8 +20,8 @@ import {
 import {
   adminEditScream,
   getUserData,
-  closeMonitoringScream,
-} from "../../redux/actions/dataActions";
+} from "../../redux/actions/screamActions";
+import { closeMonitoringScream } from "../../redux/actions/monitoringScreamActions";
 
 import L from "leaflet";
 

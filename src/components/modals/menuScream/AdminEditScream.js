@@ -21,7 +21,7 @@ import {
 import {
   adminEditScream,
   getUserData,
-} from "../../../redux/actions/dataActions";
+} from "../../../redux/actions/screamActions";
 
 import L from "leaflet";
 

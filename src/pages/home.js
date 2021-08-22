@@ -6,17 +6,19 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
   getScreams,
-  getProjects,
   closeScream,
   openScream,
+} from "../redux/actions/screamActions";
+import {
+  getProjects,
   openProject,
   closeProject,
-} from "../redux/actions/dataActions";
+} from "../redux/actions/projectActions";
 
 import { isMobileOnly } from "react-device-detect";
 
-import { clearErrors } from "../redux/actions/dataActions";
 import { logoutUser } from "../redux/actions/userActions";
+import { clearErrors } from "../redux/actions/errorsActions";
 
 //ICONS
 import lamploader from "../images/lamp.png";
