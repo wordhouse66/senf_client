@@ -360,7 +360,11 @@ class SignNote extends Component {
 
     return (
       <Fragment>
-        <div onClick={this.handleOpenSign} className={classes.openButton}></div>
+        <div
+          onClick={this.handleOpenSign}
+          className={classes.openButton}
+          data-cy="open-signnote"
+        ></div>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}

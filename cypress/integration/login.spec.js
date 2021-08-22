@@ -3,12 +3,16 @@
 const authUser = require("../fixtures/auth-user.json");
 
 describe("The Login Page", () => {
-  it("should login User", () => {
-    const { email, password } = authUser;
+  const { email, password } = authUser;
+  before(() => {
     cy.setCookie("Cookie_settings", "all");
-
+    cy.intercept("**/api/projects", { fixture: "projects.json" });
+    cy.intercept("**/api/screamsFrontend", { fixture: "screams.json" });
     cy.visit("/");
+  });
 
-    cy.get(".FilterComponent").find(".login").contains("div").click();
+  it("replace with real test", () => {
+    cy.get("body");
+    cy.get("[data-cy=open-signnote]").click();
   });
 });
