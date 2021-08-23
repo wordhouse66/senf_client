@@ -404,6 +404,7 @@ class SignNote extends Component {
                     margin="normal"
                     variant="outlined"
                     className={classes.textField}
+                    data-cy="login-email"
                     // helperText={errors.email}
                     error={errors.email ? true : false}
                     value={this.state.email}
@@ -419,6 +420,7 @@ class SignNote extends Component {
                     margin="normal"
                     variant="outlined"
                     className={classes.textField}
+                    data-cy="login-password"
                     // helperText={errors.password}
                     error={errors.password ? true : false}
                     value={this.state.password}
@@ -457,6 +459,7 @@ class SignNote extends Component {
                     type="submit"
                     className="buttonWide buttonSign"
                     disabled={loading}
+                    data-cy="login-user"
                   >
                     Anmelden
                     {loading && (
@@ -501,7 +504,7 @@ class SignNote extends Component {
                     margin="dense"
                     variant="outlined"
                     className={classes.textField}
-                    data-cy="login-email"
+                    
                     // helperText={errors.email}
                     error={errors.email ? true : false}
                     value={this.state.email}
