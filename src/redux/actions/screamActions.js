@@ -11,7 +11,6 @@ import {
   SET_ERRORS,
   POST_SCREAM,
   EDIT_SCREAM,
-  ADMIN_EDIT_SCREAM,
   LOADING_UI,
   SET_SCREAM,
   STOP_LOADING_UI,
@@ -97,151 +96,140 @@ export const closeScream = () => (dispatch) => {
 };
 
 // Post an idea
-export const postScream = (newScream, history) => (dispatch) => {
+export const postScream = (newScream, user, history) => async (dispatch) => {
+  const db = firebase.firestore();
+
   dispatch({ type: LOADING_UI });
 
-  // if (newScream.title.trim() === "") {
-  //   return response.status(400).json({ title: " " });
-  // }
-
-  // if (newScream.body.trim() === "") {
-  //   return response.status(400).json({ body: "Beschreibung fehlt" });
-  // }
-
-  // const newScreamData = {
-  //   locationHeader: newScream.locationHeader,
-  //   district: newScream.district,
-  //   title: newScream.title,
-  //   lat: newScream.lat,
-  //   long: newScream.long,
-  //   body: newScream.body,
-  //   userHandle: user.handle,
-  //   sex: user.sex,
-  //   age: user.age,
-  //   createdAt: new Date().toISOString(),
-  //   likeCount: 0,
-  //   commentCount: 0,
-  //   status: "None",
-  //   project: newScream.project,
-  // };
-
-  axios
-    .post("/postScream", newScream)
-    .then((res) => {
-      dispatch({
-        type: POST_SCREAM,
-        payload: res.data,
-      });
-
-      setTimeout(() => {
-        const project =
-          window.location.pathname.indexOf("_") > 0
-            ? window.location.pathname.substring(1)
-            : "";
-
-        if (project.indexOf("_") > 0) {
-          dispatch(openProject(project));
-        } else {
-          history.push(`/${res.data.screamId}`);
-          const screamId = res.data.screamId;
-          dispatch(openScream(screamId));
-        }
-      }, 20);
-
-      dispatch(clearErrors());
-    })
-
-    .catch((err) => {
-      dispatch({
-        type: SET_ERRORS,
-        payload: err.response.data,
-      });
+  if (newScream.title.trim() === "") {
+    dispatch({
+      type: SET_ERRORS,
+      payload: { title: "" },
     });
+  } else if (newScream.body.trim() === "") {
+    dispatch({
+      type: SET_ERRORS,
+      payload: { body: "Beschreibung fehlt" },
+    });
+  } else {
+    const newScreamData = {
+      locationHeader: newScream.locationHeader,
+      district: newScream.district,
+      title: newScream.title,
+      lat: newScream.lat,
+      long: newScream.long,
+      body: newScream.body,
+      userHandle: user.credentials.handle,
+      sex: user.credentials.sex,
+      age: user.credentials.age,
+      createdAt: new Date().toISOString(),
+      likeCount: 0,
+      commentCount: 0,
+      status: "None",
+      project: newScream.project,
+    };
+
+    if (newScream.Thema) newScreamData.Thema = newScream.Thema;
+    if (newScream.weblinkTitle)
+      newScreamData.weblinkTitle = newScream.weblinkTitle;
+    if (newScream.weblink) newScreamData.weblink = newScream.weblink;
+    if (newScream.contactTitle)
+      newScreamData.contactTitle = newScream.contactTitle;
+    if (newScream.contact) newScreamData.contact = newScream.contact;
+    if (newScream.selectedUnix)
+      newScreamData.selectedUnix = newScream.selectedUnix;
+
+    await db
+      .collection("screams")
+      .add(newScreamData)
+      .then((doc) => {
+        const resScream = newScream;
+        resScream.screamId = doc.id;
+
+        dispatch({
+          type: POST_SCREAM,
+          payload: resScream,
+        });
+
+        setTimeout(() => {
+          const project =
+            window.location.pathname.indexOf("_") > 0
+              ? window.location.pathname.substring(1)
+              : "";
+
+          if (project.indexOf("_") > 0) {
+            dispatch(openProject(project));
+          } else {
+            history.push(`/${resScream.screamId}`);
+            const screamId = resScream.screamId;
+            dispatch(openScream(screamId));
+          }
+        }, 20);
+      });
+  }
 };
 
 // Edit your idea
-export const editScream = (editScream) => (dispatch) => {
+export const editScream = (editScream) => async (dispatch) => {
+  const db = firebase.firestore();
   dispatch({ type: LOADING_UI });
-
   const screamId = editScream.screamId;
 
-  axios
-    .post(`/editScream/${screamId}`, editScream)
-    .then((res) => {
+  if (editScream.notes) {
+    editScream.notes = editScream.notes;
+  } else {
+    delete editScream.notes;
+  }
+
+  await db
+    .collection("screams")
+    .doc(screamId)
+    .update(editScream)
+    .then((doc) => {
       dispatch({
         type: EDIT_SCREAM,
-        payload: res.data,
+        payload: editScream,
       });
+    });
+  dispatch(openScream(screamId));
+  dispatch(clearErrors());
+};
 
-      dispatch(openScream(screamId));
+export const deleteScream = (screamId, user) => async (dispatch) => {
+  const db = firebase.firestore();
+  const ref = db.collection("screams").doc(screamId);
+  const doc = await ref.get();
+
+  console.log(doc.data());
+
+  if (!doc.exists) {
+    console.log("Scream not found");
+  } else if (doc.data().userHandle !== user.credentials.handle) {
+    console.log("Unauthorized", doc.data().handle, user.credentials.handle);
+    // return res.status(403).json({ error: "Unauthorized" });
+  } else {
+    dispatch({
+      type: DELETE_SCREAM,
+      payload: screamId,
+    });
+    ref.delete().then(() => {
+      window.history.pushState(null, null, "/");
+      window.location.reload(false);
       dispatch(clearErrors());
-    })
-
-    .catch((err) => {
-      dispatch({
-        type: SET_ERRORS,
-        payload: err.response.data,
-      });
     });
+  }
 };
 
-// Edit an idea as a admin
-export const adminEditScream = (editScream) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
-
-  const screamId = editScream.screamId;
-
-  axios
-    .post(`/adminEditScream/${screamId}`, editScream)
-    .then((res) => {
+export const getUserEmail = (userHandle) => async (dispatch) => {
+  const db = firebase.firestore();
+  await db
+    .collection("users")
+    .doc(userHandle)
+    .get()
+    .then((doc) => {
       dispatch({
-        type: ADMIN_EDIT_SCREAM,
-        payload: res.data,
-      });
-
-      dispatch(openScream(screamId));
-      dispatch(clearErrors());
-    })
-
-    .catch((err) => {
-      dispatch({
-        type: SET_ERRORS,
-        payload: err.response.data,
+        type: SET_SCREAM_USER,
+        payload: doc.data(),
       });
     });
-};
-
-export const deleteScream = (screamId) => (dispatch) => {
-  axios
-    .delete(`/scream/${screamId}`)
-    .then(() => {
-      dispatch({
-        type: DELETE_SCREAM,
-        payload: screamId,
-      });
-    })
-
-    .catch((err) => console.log(err))
-    .finally(() => {
-      setTimeout(() => {
-        window.history.pushState(null, null, "/");
-        window.location.reload(false);
-        dispatch(clearErrors());
-      }, 10);
-    });
-};
-
-export const getUserData = (userHandle) => (dispatch) => {
-  axios
-    .get(`/user/${userHandle}`)
-    .then((res) => {
-      dispatch(
-        {
-          type: SET_SCREAM_USER,
-          payload: res.data.user,
-        },
-        console.log(res.data.user)
-      );
-    })
-    .catch((err) => console.log(err));
 };

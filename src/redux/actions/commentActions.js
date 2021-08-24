@@ -3,15 +3,17 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 
 import { clearErrors } from "./errorsActions";
+
+import { openScream } from "./screamActions";
+
 import {
   SET_COMMENT,
   DELETE_COMMENT,
-  SET_ERRORS,
   LOADING_UI,
   STOP_LOADING_UI,
   SUBMIT_COMMENT,
-  SET_SCREAM,
 } from "../types";
+
 import axios from "axios";
 
 //get the data for one comment
@@ -19,7 +21,6 @@ export const getComment = (commentId) => async (dispatch) => {
   const db = firebase.firestore();
   dispatch({ type: LOADING_UI });
 
-  let commentData = {};
   const ref = await db.collection("comments").doc(commentId).get();
 
   if (!ref.exists) {
@@ -38,7 +39,9 @@ export const getComment = (commentId) => async (dispatch) => {
 // Submit a comment to an idea
 export const submitComment =
   (screamId, commentData, user) => async (dispatch) => {
-    // if (req.body.body.trim() === "")
+    // if (commentData.body.trim() === "") {
+    //   return error;
+    // }
     // return res.status(400).json({ comment: "Must not be empty" });
 
     const db = firebase.firestore();
@@ -64,6 +67,10 @@ export const submitComment =
         type: SUBMIT_COMMENT,
         payload: newComment,
       });
+
+      setTimeout(() => {
+        dispatch(openScream(screamId));
+      }, 10);
     }
   };
 
@@ -86,7 +93,7 @@ export const deleteComment =
     if (!doc.exists) {
       console.log("No such document!");
     } else if (doc.userHandle !== user.handle) {
-      console.log("no your comment");
+      console.log("not your comment");
       // return res.status(403).json({ error: "Unauthorized" });
     } else {
       const scream = screamDoc.data();
@@ -97,12 +104,15 @@ export const deleteComment =
         scream.comments.push({ ...doc.data(), commentId: doc.id })
       );
 
+      ref.delete();
       dispatch({
         type: DELETE_COMMENT,
         payload: commentId,
       });
-      //   dispatch({ type: SET_SCREAM, payload: scream });
-      ref.delete();
+
+      setTimeout(() => {
+        dispatch(openScream(screamId));
+      }, 50);
     }
 
     dispatch(clearErrors());

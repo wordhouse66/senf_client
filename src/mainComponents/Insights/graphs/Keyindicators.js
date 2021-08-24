@@ -11,9 +11,7 @@ import lamploader from "../../../images/lamp.png";
 import ChatBorder from "../../../images/icons/chat.png";
 import HandFull from "../../../images/icons/handsFull.png";
 
-const Keyindicators = ({ screams, likesLength }) => {
-  const { likes, comments } = useSelector((state) => state.data);
-
+const Keyindicators = ({ screams, likesLength, commentslength }) => {
   const Wishlength =
     screams.length === 0 ? (
       <div className="keyindicatorcard">
@@ -43,24 +41,23 @@ const Keyindicators = ({ screams, likesLength }) => {
         {likesLength} Votes
       </div>
     );
-  const Commentslength =
-    comments.length === 0 ? (
-      <div className="keyindicatorcard">
-        <CircularProgress size={12} thickness={2} />
-      </div>
-    ) : (
-      <div className="keyindicatorcard">
-        <img src={ChatBorder} width="25px" alt="lamploader"></img>
-        {comments.length} Kommentare
-      </div>
-    );
 
   return (
     <div className="analysewrapper">
       <div className="keyindicatorswrapper">
         {Wishlength}
         {Likeslength}
-        {Commentslength}
+
+        {commentslength === 0 ? (
+          <div className="keyindicatorcard">
+            <CircularProgress size={12} thickness={2} />
+          </div>
+        ) : (
+          <div className="keyindicatorcard">
+            <img src={ChatBorder} width="25px" alt="lamploader"></img>
+            {commentslength} Kommentare
+          </div>
+        )}
       </div>
     </div>
   );

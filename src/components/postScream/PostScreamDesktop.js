@@ -553,7 +553,7 @@ class PostScream extends Component {
       newScream.selectedUnix = this.state.selectedUnix;
     }
 
-    this.props.postScream(newScream, this.props.history);
+    this.props.postScream(newScream, this.props.user, this.props.history);
   };
 
   _onMarkerDragEndDesktop = (newViewport) => {

@@ -22,7 +22,6 @@ export const DELETE_SCREAM = "DELETE_SCREAM";
 export const POST_SCREAM = "POST_SCREAM";
 
 export const EDIT_SCREAM = "EDIT_SCREAM";
-export const ADMIN_EDIT_SCREAM = "ADMIN_EDIT_SCREAM";
 
 export const SUBMIT_COMMENT = "SUBMIT_COMMENT";
 

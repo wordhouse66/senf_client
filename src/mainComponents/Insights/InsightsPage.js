@@ -23,6 +23,7 @@ const InsightsPage = ({ order }) => {
 
   const [screams, setScreams] = useState("");
   const [likesLength, setLikesLength] = useState("");
+  const [commentsLength, setCommentsLength] = useState("");
 
   const fetchDataScreams = async () => {
     const ref = await db
@@ -49,14 +50,29 @@ const InsightsPage = ({ order }) => {
     setLikesLength(likesLength);
   };
 
+  const fetchDataComments = async () => {
+    const ref = await db
+      .collection("comments")
+      .orderBy("createdAt", "desc")
+      .get();
+    const commentsLength = ref.size;
+    setCommentsLength(commentsLength);
+  };
+
   useEffect(() => {
     fetchDataScreams();
     fetchDataLikes();
+    fetchDataComments();
   }, []);
+
   return order === 3 ? (
     <>
       <div className="MainAnimation2">
-        <Keyindicators screams={screams} likesLength={likesLength} />
+        <Keyindicators
+          screams={screams}
+          likesLength={likesLength}
+          commentslength={commentsLength}
+        />
         <div className="cover cover1">
           <img src={Themencover} width="100%" alt="Themencover" />
           <ThemenDialog screams={screams} />

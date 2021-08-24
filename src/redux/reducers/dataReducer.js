@@ -11,7 +11,6 @@ import {
   DELETE_COMMENT,
   POST_SCREAM,
   EDIT_SCREAM,
-  ADMIN_EDIT_SCREAM,
   SET_SCREAM,
   SUBMIT_COMMENT,
   LOADING_PROJECTS_DATA,
@@ -74,10 +73,10 @@ export default function (state = initialState, action) {
         ...state,
       };
     case DELETE_SCREAM:
-      index = state.screams.findIndex(
+      let index_delete = state.screams.findIndex(
         (scream) => scream.screamId === action.payload
       );
-      state.screams.splice(index, 1);
+      state.screams.splice(index_delete, 1);
       return {
         ...state,
       };
@@ -110,12 +109,6 @@ export default function (state = initialState, action) {
       };
 
     case EDIT_SCREAM:
-      return {
-        ...state,
-        screams: [action.payload, ...state.screams],
-      };
-
-    case ADMIN_EDIT_SCREAM:
       return {
         ...state,
         screams: [action.payload, ...state.screams],
