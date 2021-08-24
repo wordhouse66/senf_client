@@ -43,7 +43,6 @@ export const submitComment =
     //   return error;
     // }
     // return res.status(400).json({ comment: "Must not be empty" });
-
     const db = firebase.firestore();
     const ref = db.collection("screams").doc(screamId);
     const doc = await ref.get();
