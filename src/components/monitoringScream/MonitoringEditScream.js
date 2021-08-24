@@ -111,9 +111,12 @@ class MonitoringEditScream extends Component {
     notes: null,
   };
 
-  componentWillReceiveProps() {
+  componentDidMount() {
     this.handleOpen();
   }
+  // componentWillReceiveProps() {
+  //   this.handleOpen();
+  // }
   // componentDidCatch(prevProps, nextProps, snapshot) {
   //   alert("hi");
   //   // if (
@@ -177,6 +180,8 @@ class MonitoringEditScream extends Component {
         selectedUnix: this.props.scream.selectedUnix,
       });
     }
+
+    console.log(this.props.data);
   };
   handleClose = () => {
     this.props.closeMonitoringScream();
@@ -776,15 +781,17 @@ class MonitoringEditScream extends Component {
                   }}
                 >
                   Email:
-                  <a
-                    href={"mailto:" + this.props.data.scream_user.email}
-                    style={{
-                      fontFamily: "Futura PT W01 Book",
-                      textDecoration: "underline",
-                    }}
-                  >
-                    {this.props.data.scream_user.email}
-                  </a>
+                  {this.props.data.scream_user && (
+                    <a
+                      href={"mailto:" + this.props.data.scream_user.email}
+                      style={{
+                        fontFamily: "Futura PT W01 Book",
+                        textDecoration: "underline",
+                      }}
+                    >
+                      {this.props.data.scream_user.email}
+                    </a>
+                  )}
                 </div>{" "}
                 <div
                   style={{

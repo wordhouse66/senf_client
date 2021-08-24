@@ -47,11 +47,12 @@ export const openMonitoringScream = (screamId) => async (dispatch) => {
     scream.id = ref.id;
 
     dispatch({ type: LOADING_UI });
-    dispatch({ type: OPEN_MONITORING_SCREAM });
+    dispatch({ type: CLOSE_MONITORING_SCREAM });
 
     // const newPath = `/${screamId}`;
     // window.history.pushState(null, null, newPath);
     dispatch({ type: SET_SCREAM, payload: scream });
+    dispatch({ type: OPEN_MONITORING_SCREAM });
     dispatch({ type: STOP_LOADING_UI });
   }
 };

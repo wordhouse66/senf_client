@@ -14,8 +14,6 @@ import {
   SUBMIT_COMMENT,
 } from "../types";
 
-import axios from "axios";
-
 //get the data for one comment
 export const getComment = (commentId) => async (dispatch) => {
   const db = firebase.firestore();
@@ -43,6 +41,7 @@ export const submitComment =
     //   return error;
     // }
     // return res.status(400).json({ comment: "Must not be empty" });
+
     const db = firebase.firestore();
     const ref = db.collection("screams").doc(screamId);
     const doc = await ref.get();

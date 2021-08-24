@@ -18,7 +18,6 @@ import {
   CLOSE_SCREAM,
   SET_SCREAM_USER,
 } from "../types";
-import axios from "axios";
 
 // Get all ideas
 export const getScreams = () => async (dispatch) => {
