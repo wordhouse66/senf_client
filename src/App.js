@@ -59,7 +59,7 @@ i18n
         translation: translationDE,
       },
     },
-    lng: "de", // if you're using a language detector, do not define the lng option
+    lng: navigator.language === "de-DE" ? "de" : "en", // if you're using a language detector, do not define the lng option
     fallbackLng: "de",
 
     interpolation: {
