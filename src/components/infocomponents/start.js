@@ -1,8 +1,11 @@
 /** @format */
 
-import React, { Component } from "react";
+import React, { useSelector, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import withStyles from "@material-ui/core/styles/withStyles";
+
+import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router";
 
 //LazyLoad
 import { LazyImage } from "react-lazy-images";
@@ -112,41 +115,32 @@ const styles = {
   },
 };
 
-export class start extends Component {
-  constructor(props) {
-    super(props);
+const Start = ({ classes }) => {
+  const history = useHistory();
+  const { loading } = useSelector((state) => state.data);
 
+  const { t } = useTranslation();
+
+  useEffect(() => {
     if (!isMobileOnly) {
-      this.props.history.push("/");
+      history.push("/");
     }
 
     if (
       cookies.get("Cookie_settings") !== "all" &&
       cookies.get("Cookie_settings") !== "minimum"
     ) {
-      this.props.history.push("/intro");
+      history.push("/intro");
     }
-  }
+  }, []);
 
-  render() {
-    const { loading } = this.props.data;
-    const { classes } = this.props;
+  const nav = !loading ? (
+    <div className={classes.nav}>
+      <h1 className="logo1">
+        <img src={Logo} width="100px"></img>
+      </h1>
 
-    // window.onbeforeunload = function() {
-    //   window.scrollTo(0, 0);
-    // };
-
-    // window.onload = function() {
-    //   window.scrollTo(0, 0);
-    // };
-
-    const nav = !loading ? (
-      <div className={classes.nav}>
-        <h1 className="logo1">
-          <img src={Logo} width="100px"></img>
-        </h1>
-
-        {/* <a
+      {/* <a
           href="https://www.facebook.com/senf.koeln/"
           rel="noopener noreferrer"
           target="_blank"
@@ -164,136 +158,116 @@ export class start extends Component {
             <img src={Insta} width="25" alt="EndImage" />
           </div>{" "}
         </a> */}
-      </div>
-    ) : null;
+    </div>
+  ) : null;
 
-    const content = !loading ? (
-      <div className="wrapperMenu">
-        <Grid container spacing={0}>
-          <Grid item sm={12}>
-            <div className="StartBackground" />
+  const content = !loading ? (
+    <div className="wrapperMenu">
+      <Grid container spacing={0}>
+        <Grid item sm={12}>
+          <div className="StartBackground" />
+
+          <LazyImage
+            src={TopPath}
+            className={classes.TopPath}
+            width="100%"
+            alt="Top_image_person_with_mustard_tube_good_quality"
+            placeholder={({ imageProps, ref }) => (
+              <img
+                ref={ref}
+                src={TopPathBad}
+                className={classes.TopPath}
+                width="100%"
+                alt="Top_image_person_with_mustard_tube_bad_quality"
+              />
+            )}
+            actual={({ imageProps }) => (
+              <img
+                {...imageProps}
+                alt="Top_image_person_with_mustard_tube_good_quality"
+              />
+            )}
+          />
+
+          <div className="FirstWrapper">
+            <span className="title1">{t("infopage_block1_title")}</span>
+
+            <span className="subTitle1">{t("infopage_block1_subtitle")}</span>
 
             <LazyImage
-              src={TopPath}
-              className={classes.TopPath}
+              src={First}
+              className="First"
               width="100%"
-              alt="Top_image_person_with_mustard_tube_good_quality"
+              alt="First_image_persons_idea_good_quality"
               placeholder={({ imageProps, ref }) => (
                 <img
                   ref={ref}
-                  src={TopPathBad}
-                  className={classes.TopPath}
+                  src={FirstBad}
+                  className="First"
                   width="100%"
-                  alt="Top_image_person_with_mustard_tube_bad_quality"
+                  alt="First_image_persons_idea_bad_quality"
                 />
               )}
               actual={({ imageProps }) => (
                 <img
                   {...imageProps}
-                  alt="Top_image_person_with_mustard_tube_good_quality"
+                  alt="First_image_persons_idea_good_quality"
                 />
               )}
             />
+          </div>
 
-            <div className="FirstWrapper">
-              <span className="title1">
-                Du hast Ideen für <br /> dein Kölner Veedel?
-              </span>
+          <span className="title2">{t("infopage_block2_title")}</span>
 
-              <span className="subTitle1">
-                Hier kannst du deine Ideen teilen und die der anderen sehen; in
-                den Dialog treten und für Ideen, die dir gefallen stimmen!
-              </span>
+          <span className="subTitle2">{t("infopage_block2_subtitle")}</span>
+          <img src={Second} className="Second" alt="TopPath" />
 
-              <LazyImage
-                src={First}
-                className="First"
-                width="100%"
-                alt="First_image_persons_idea_good_quality"
-                placeholder={({ imageProps, ref }) => (
-                  <img
-                    ref={ref}
-                    src={FirstBad}
-                    className="First"
-                    width="100%"
-                    alt="First_image_persons_idea_bad_quality"
-                  />
-                )}
-                actual={({ imageProps }) => (
-                  <img
-                    {...imageProps}
-                    alt="First_image_persons_idea_good_quality"
-                  />
-                )}
-              />
-            </div>
+          <span className="title3">{t("infopage_block3_title")}</span>
 
-            <span className="title2">
-              Eure Stimmen können <br /> laut werden!
-            </span>
+          <span className="subTitle3">{t("infopage_block3_subtitle")}</span>
 
-            <span className="subTitle2">
-              Sowohl den Stadtvertreter:innen als auch euch wollen wir hier
-              Bürger-Know-How vermitteln. Lasst die Stadt Köln eure Ideen hören!
-            </span>
-            <img src={Second} className="Second" alt="TopPath" />
+          <img src={Third} className="Third" alt="TopPath" />
 
-            <span className="title3">
-              Du willst das Projekt <br /> unterstützen?
-            </span>
+          <Link to="/">
+            <button className="ToWishes buttonWide">
+              {" "}
+              {t("infopage_next")}
+            </button>
+          </Link>
 
-            <span className="subTitle3">
-              Wir konnten bereits tolle Kooperationen eingehen. Wenn auch dich
-              unsere Denkweise anspricht, lass uns quatschen!
-            </span>
+          <a href="mailto:dein@senf.koeln">
+            <div className={classes.KontaktButton}>{t("contact")}</div>
+          </a>
 
-            <img src={Third} className="Third" alt="TopPath" />
-
-            <Link to="/">
-              <button className="ToWishes buttonWide">weiter</button>
+          <span className="footerStart">
+            <Link to="/impressum">
+              <span className="impressum"> {t("imprint")}</span>
             </Link>
-
-            <a href="mailto:dein@senf.koeln">
-              <div className={classes.KontaktButton}>Kontakt</div>
-            </a>
-
-            <span className="footerStart">
-              <Link to="/impressum">
-                <span className="impressumStart"> Impressum </span>
-              </Link>
-              <Link to="/datenschutz">
-                <span className="datenschutzStart"> | Datenschutz |</span>
-              </Link>
-              <Link to="/agb">
-                <span className="AGBStart"> AGB </span>
-              </Link>
-            </span>
-
-            <span className="footercopyStart">
-              Illustrationen: Gizem Güvenda&#287;
-            </span>
-          </Grid>{" "}
-        </Grid>
+            <Link to="/datenschutz">
+              <span className="datenschutz"> | {t("dataPrivacy")} | </span>
+            </Link>
+            <Link to="/agb">
+              <span className="agb"> {t("termsAndConditions")} </span>
+            </Link>
+          </span>
+          <span className="footercopyStart">{t("infopage_illustrator")}</span>
+        </Grid>{" "}
+      </Grid>
+    </div>
+  ) : (
+    <div className="white">
+      <div className="spinnerDiv">
+        <CircularProgress size={50} thickness={2} />
       </div>
-    ) : (
-      <div className="white">
-        <div className="spinnerDiv">
-          <CircularProgress size={50} thickness={2} />
-        </div>
-      </div>
-    );
+    </div>
+  );
 
-    return (
-      <div className={classes.wrapper}>
-        {nav}
-        {content}
-      </div>
-    );
-  }
-}
+  return (
+    <div className={classes.wrapper}>
+      {nav}
+      {content}
+    </div>
+  );
+};
 
-const mapStateToProps = (state) => ({
-  data: state.data,
-});
-
-export default connect(mapStateToProps)(withStyles(styles)(start));
+export default withStyles(styles)(Start);

@@ -18,7 +18,7 @@ import { logoutUser, getUserData } from "./redux/actions/userActions";
 
 //Pages
 import home from "./pages/home";
-import start from "./components/infocomponents/start";
+import Start from "./components/infocomponents/Start";
 
 import info from "./components/infocomponents/info";
 import intro from "./components/infocomponents/intro";
@@ -113,8 +113,6 @@ if (get_local_storage_status() === "unavailable") {
 
 const token = localStorage.FBIdToken;
 
-const refreshToken = localStorage.FBIdToken_refresh;
-
 console.log(localStorage);
 
 if (token) {
@@ -177,7 +175,7 @@ const App = () => {
           <div className="container">
             <Switch>
               <Route exact path="/" component={home} />
-              <Route exact path="/start" component={start} />
+              <Route exact path="/start" component={Start} />
 
               <Route exact path="/filter" component={filter} />
 

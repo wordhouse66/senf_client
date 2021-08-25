@@ -44,6 +44,7 @@
     color: #414345;
     font-size: 22pt;
     font-family: "PlayfairDisplay-Bold";
+    white-space: pre-line;
   
   }
   
@@ -66,7 +67,7 @@
     color: #414345;
     font-size: 22pt;
     font-family: "PlayfairDisplay-Bold";
-  
+    white-space: pre-line;
   }
   
   .subTitle2Web {
@@ -88,6 +89,7 @@
     color: #414345;
     font-size: 22pt;
     font-family: "PlayfairDisplay-Bold";
+    white-space: pre-line;
   
   }
   
