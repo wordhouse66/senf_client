@@ -194,6 +194,7 @@ export const editScream = (editScream) => async (dispatch) => {
   dispatch(clearErrors());
 };
 
+// Delete your idea
 export const deleteScream = (screamId, user) => async (dispatch) => {
   const db = firebase.firestore();
   const ref = db.collection("screams").doc(screamId);
@@ -203,10 +204,12 @@ export const deleteScream = (screamId, user) => async (dispatch) => {
 
   if (!doc.exists) {
     console.log("Scream not found");
-  } else if (doc.data().userHandle !== user.credentials.handle) {
-    console.log("Unauthorized", doc.data().handle, user.credentials.handle);
-    // return res.status(403).json({ error: "Unauthorized" });
-  } else {
+  }
+  // else if (doc.data().userHandle !== user.credentials.handle) {
+  //   console.log("Unauthorized", doc.data().handle, user.credentials.handle);
+  //   // return res.status(403).json({ error: "Unauthorized" });
+  // }
+  else {
     dispatch({
       type: DELETE_SCREAM,
       payload: screamId,
