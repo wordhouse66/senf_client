@@ -27,7 +27,7 @@ import PostScream from "../components/postScream/PostScream";
 import Appbar from "../components/layout/Appbar";
 
 import InsightsPage from "../mainComponents/Insights/InsightsPage";
-import { DesktopSidebar } from "../components/layout/DesktopSidebar";
+import DesktopSidebar from "../components/layout/DesktopSidebar";
 
 import Cookies from "universal-cookie";
 import Topbar from "../components/layout/Topbar";
@@ -555,8 +555,8 @@ export class home extends Component {
     }
   };
 
-  handleCookiesDesktop = () => {
-    cookies.set("Cookie_settings", "all", {
+  handleCookies = (cookie_settings) => {
+    cookies.set("Cookie_settings", cookie_settings, {
       path: "/",
       maxAge: 60 * 60 * 24 * 90,
       sameSite: "none",
@@ -565,19 +565,15 @@ export class home extends Component {
     this.setState({ cookiesSetDesktop: true });
   };
 
-  handleMinimumCookies = () => {
-    cookies.set("Cookie_settings", "minimum", {
-      path: "/",
-      maxAge: 60 * 60 * 24 * 90,
-      sameSite: "none",
-      secure: true,
-    });
-    this.setState({ cookiesSetDesktop: true });
-  };
-
-  handleOpenCookiePreferences() {
-    window.open("/cookieConfigurator", "_blank");
-  }
+  // handleMinimumCookies = () => {
+  //   cookies.set("Cookie_settings", "minimum", {
+  //     path: "/",
+  //     maxAge: 60 * 60 * 24 * 90,
+  //     sameSite: "none",
+  //     secure: true,
+  //   });
+  //   this.setState({ cookiesSetDesktop: true });
+  // };
 
   noLocation = () => {
     this.setState({
@@ -999,8 +995,7 @@ export class home extends Component {
           handleOpenInfoPageDesktop={this.handleOpenInfoPageDesktop}
           handleCloseInfoPageDesktop={this.handleCloseInfoPageDesktop}
           cookiesSetDesktop={this.state.cookiesSetDesktop}
-          handleCookiesDesktop={this.handleCookiesDesktop}
-          handleMinimumCookies={this.handleMinimumCookies}
+          handleCookies={this.handleCookies}
           deleteAccount={this.deleteAccount}
           handleLogout={this.handleLogout}
           openInfoPageDesktop={this.state.openInfoPageDesktop}

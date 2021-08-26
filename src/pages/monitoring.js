@@ -496,29 +496,26 @@ export class monitoring extends Component {
     this.props.closeScream();
   };
 
-  handleCookiesDesktop = () => {
-    cookies.set("Cookie_settings", "all", {
-      path: "/",
-      maxAge: 60 * 60 * 24 * 90,
-      sameSite: "none",
-      secure: true,
-    });
-    this.setState({ cookiesSetDesktop: true });
+  handleOpenInfoPageDesktop = () => {
+    this.setState({ openInfoPageDesktop: true });
   };
+  handleCloseInfoPageDesktop = () => {
+    this.setState({ openInfoPageDesktop: false });
 
-  handleMinimumCookies = () => {
-    cookies.set("Cookie_settings", "minimum", {
-      path: "/",
-      maxAge: 60 * 60 * 24 * 90,
-      sameSite: "none",
-      secure: true,
-    });
-    this.setState({ cookiesSetDesktop: true });
+    const screamId = this.props.match.params.screamId;
+
+    if (screamId) {
+      if (screamId.indexOf("_") > 0) {
+        this.props.openProject(screamId);
+      } else {
+        this.props.openScreamFirstTime(screamId);
+      }
+      this.setState({ screamIdParam: screamId });
+    }
+    if (window.location.pathname === "/projects") {
+      this.handleClick(2);
+    }
   };
-
-  handleOpenCookiePreferences() {
-    window.open("/cookieConfigurator", "_blank");
-  }
 
   noLocation = () => {
     this.setState({
