@@ -40,6 +40,13 @@ import axios from "axios";
 
 import { isTablet } from "react-device-detect";
 import Cookies from "universal-cookie";
+
+
+import packageJson from "../package.json";
+import { getBuildDate } from "./util/utils";
+import withClearCache from "./ClearCache";
+
+
 const cookies = new Cookies();
 
 require("intersection-observer");
@@ -182,5 +189,6 @@ class App extends Component {
     );
   }
 }
+console.log(getBuildDate(packageJson.buildDate));
 
 export default App;
