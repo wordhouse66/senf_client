@@ -28,6 +28,7 @@ import {
   SUBMIT_CHAT,
   SET_SCREAM_USER,
   SET_FULL_SCREAMS,
+  SET_COOKIES,
 } from "../types";
 
 const initialState = {
@@ -52,6 +53,7 @@ const initialState = {
   scream_user: {},
 
   full_screams: [],
+  cookie_settings: "",
 };
 
 export default function (state = initialState, action) {
@@ -236,6 +238,12 @@ export default function (state = initialState, action) {
         ...state,
         full_screams: action.payload,
         loading: false,
+      };
+
+    case SET_COOKIES:
+      return {
+        ...state,
+        cookie_settings: action.payload,
       };
 
     default:

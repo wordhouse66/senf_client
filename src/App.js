@@ -21,7 +21,7 @@ import home from "./pages/home";
 import Start from "./components/infocomponents/Start";
 
 import info from "./components/infocomponents/info";
-import intro from "./components/infocomponents/intro";
+import Intro from "./components/infocomponents/Intro";
 import verify from "./components/profile/verify";
 
 import impressum from "./components/infocomponents/legal/impressum";
@@ -181,7 +181,7 @@ const App = () => {
 
               <Route exact path="/info" component={info} />
 
-              <Route exact path="/intro" component={intro} />
+              <Route exact path="/intro" component={Intro} />
 
               <Route exact path="/datenschutz" component={datenschutz} />
 
