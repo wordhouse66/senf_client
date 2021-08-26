@@ -55,10 +55,7 @@ export class DesktopSidebar extends Component {
       handleOpenInfoPageDesktop,
       handleCloseInfoPageDesktop,
       cookiesSetDesktop,
-      handleOpenCookiePreferences,
-      handleCookiesDesktop,
-      handleMinimumCookies,
-
+      handleCookies,
       deleteAccount,
       handleLogout,
       loadingProjects,
@@ -80,7 +77,7 @@ export class DesktopSidebar extends Component {
     ) : (
       <div
         className="profile"
-      // onClick={() => handleClick(4)}
+        // onClick={() => handleClick(4)}
       >
         <Account
           handleLegend={this.handleLegend}
@@ -127,9 +124,7 @@ export class DesktopSidebar extends Component {
           cookiesSetDesktop={cookiesSetDesktop}
           handleOpenInfoPageDesktop={handleOpenInfoPageDesktop}
           handleCloseInfoPageDesktop={handleCloseInfoPageDesktop}
-          handleCookiesDesktop={handleCookiesDesktop}
-          handleOpenCookiePreferences={handleOpenCookiePreferences}
-          handleMinimumCookies={handleMinimumCookies}
+          handleCookies={handleCookies}
           loading={loading}
           classes={classes}
         />
@@ -141,17 +136,16 @@ export class DesktopSidebar extends Component {
           projectsData={projectsData}
         />
 
-
-
-        {MenuData.map((item, i) =>
+        {MenuData.map((item, i) => (
           <MenuItem
             order={order}
             index={i + 1}
             isSelectedIcon={item.isSelectedIcon}
             isNotSelectedIcon={item.isNotSelectedIcon}
             text={item.text}
-            handleClick={handleClick}>
-          </MenuItem>)}
+            handleClick={handleClick}
+          ></MenuItem>
+        ))}
 
         {/* <div
           className="profile_indented"
@@ -197,8 +191,6 @@ export class DesktopSidebar extends Component {
             marginBottom: "30px",
           }}
         ></div> */}
-
-        
 
         <div
           style={{

@@ -6,8 +6,11 @@
   "imprint": "Impressum",
   "dataPrivacy": "Datenschutz",
   "termsAndConditions": "AGB",
+  "accept": "Akzeptieren",
+  "next":"Weiter",
 
   "cookiebanner_title":"Ohne Cookies geht's nicht.",
+  "cookiebanner_text": "Für die Bereitstellung einiger Funktionen und die Verbesserung dieses Services brauchen wir Cookies. Falls du wirklich nur die technisch notwendigsten Cookies akzeptieren willst, klicke <2> hier</2> oder konfiguriere deine <5>Cookie-Einstellungen</5> .",
 
 
   "infopage_block1_title": "Du hast Ideen für\ndein Kölner Veedel?",
@@ -20,7 +23,10 @@
   "infopage_block3_subtitle": "Wir konnten bereits tolle Kooperationen eingehen. Wenn auch dich unsere Denkweise anspricht, lass uns quatschen!",
 
   "infopage_button_showIdeas": "Ideen anzeigen",
-  "infopage_next":"Weiter",
-  "infopage_illustrator": "Illustratorin: Gizem Güvendag"
+  "infopage_illustrator": "Illustratorin: Gizem Güvendag",
+
+  "nameTitle": "This is your name",
+"userMessagesUnread": "Hello <1>{{name}}</1>, you have {{count}} unread message. <5>Go to message</5>.",
+"userMessagesUnread_plural": "Hello <1>{{name}}</1>, you have {{count}} unread messages.  <5>Go to messages</5>."
 
 }

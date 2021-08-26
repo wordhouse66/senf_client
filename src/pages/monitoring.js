@@ -590,30 +590,6 @@ export class monitoring extends Component {
     }
   };
 
-  handleCookiesDesktop = () => {
-    cookies.set("Cookie_settings", "all", {
-      path: "/",
-      maxAge: 60 * 60 * 24 * 90,
-      sameSite: "none",
-      secure: true,
-    });
-    this.setState({ cookiesSetDesktop: true });
-  };
-
-  handleMinimumCookies = () => {
-    cookies.set("Cookie_settings", "minimum", {
-      path: "/",
-      maxAge: 60 * 60 * 24 * 90,
-      sameSite: "none",
-      secure: true,
-    });
-    this.setState({ cookiesSetDesktop: true });
-  };
-
-  handleOpenCookiePreferences() {
-    window.open("/cookieConfigurator", "_blank");
-  }
-
   noLocation = () => {
     this.setState({
       latitude1: 50.93892,

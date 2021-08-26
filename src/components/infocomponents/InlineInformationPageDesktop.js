@@ -24,7 +24,7 @@ import Mountain from "../../images/bigbubblenew.png";
 //LOADER
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 
 //ICON TO OPEN THE INFOMENU
 import Info from "../../images/icons/info.png";
@@ -120,15 +120,13 @@ const styles = {
   },
 };
 
-const InlineInformationPage = ({
+const InlineInformationPageDesktop = ({
   classes,
   openInfoPageDesktop,
   cookiesSetDesktop,
   handleOpenInfoPageDesktop,
   handleCloseInfoPageDesktop,
-  handleCookiesDesktop,
-  handleOpenCookiePreferences,
-  handleMinimumCookies,
+  handleCookies,
   loading,
 }) => {
   const { t } = useTranslation();
@@ -150,26 +148,33 @@ const InlineInformationPage = ({
         <DialogContent style={{ height: "200px" }}>
           <div className="cookiesText">
             {" "}
-            <span className="cookiesHeader">Ohne Cookies geht's nicht.</span>
+            <span className="cookiesHeader">{t("cookiebanner_title")}</span>
             <br />
-            Für die Bereitstellung einiger Funktionen und die Verbesserung
-            dieses Services brauchen wir Cookies. Falls du wirklich nur die
-            technisch notwendigsten Cookies akzeptieren willst, klicke{" "}
-            <span className="Terms" onClick={handleMinimumCookies}>
-              hier
-            </span>
-            &nbsp;oder konfiguriere deine{" "}
-            <span className="Terms" onClick={handleOpenCookiePreferences}>
-              Cookie-Einstellungen
-            </span>
-            .
+            <Trans i18nKey="cookiebanner_text">
+              Für die Bereitstellung einiger Funktionen und die Verbesserung
+              dieses Services brauchen wir Cookies. Falls du wirklich nur die
+              technisch notwendigsten Cookies akzeptieren willst, klicke{" "}
+              <span className="Terms" onClick={() => handleCookies("minimum")}>
+                hier
+              </span>
+              &nbsp;oder konfiguriere deine{" "}
+              <span
+                className="Terms"
+                onClick={() => {
+                  window.open("/cookieConfigurator", "_blank");
+                }}
+              >
+                Cookie-Einstellungen
+              </span>
+              .
+            </Trans>
           </div>
 
           <button
             className="buttonWide buttonCookiesDesktop"
-            onClick={handleCookiesDesktop}
+            onClick={() => handleCookies("all")}
           >
-            Akzeptieren
+            {t("accept")}
           </button>
         </DialogContent>
       </Dialog>
@@ -290,4 +295,4 @@ const InlineInformationPage = ({
   );
 };
 
-export default withStyles(styles)(InlineInformationPage);
+export default withStyles(styles)(InlineInformationPageDesktop);

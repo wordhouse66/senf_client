@@ -207,10 +207,7 @@ const Start = ({ classes }) => {
             <img src={Third} className="Third" alt="TopPath" />
 
             <Link to="/">
-              <button className="ToWishes buttonWide">
-                {" "}
-                {t("infopage_next")}
-              </button>
+              <button className="ToWishes buttonWide">{t("next")}</button>
             </Link>
 
             <a href="mailto:dein@senf.koeln">

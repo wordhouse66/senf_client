@@ -383,10 +383,6 @@ class ScreamDialog extends Component {
     this.setState({ open: true });
   }
 
-  handleOpenCookiePreferences() {
-    window.open("/cookieConfigurator", "_blank");
-  }
-
   handleClick = () => {
     this.setState({ clicked: true });
     setTimeout(

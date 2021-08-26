@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { useHistory } from "react-router";
 
 //Translation
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 //Images
 import FirstImage from "../../images/cityperson.png";
@@ -33,6 +33,7 @@ const styles = {
     height: "100vh",
     position: "fixed",
   },
+
   PlattformButton2: {
     position: "fixed",
     zIndex: 99,
@@ -78,6 +79,8 @@ const Intro = ({ classes }) => {
     dispatch(setCookies(cookie_settings));
   };
 
+  const name = "person";
+
   const cookiebanner =
     cookies.get("Cookie_settings") !== "all" &&
     cookies.get("Cookie_settings") !== "minimum" ? (
@@ -86,31 +89,35 @@ const Intro = ({ classes }) => {
           {" "}
           <span className="cookiesHeader">{t("cookiebanner_title")}</span>
           <br />
-          {t("")}
-          Für die Bereitstellung einiger Funktionen und die Verbesserung dieses
-          Services brauchen wir Cookies. Falls du wirklich nur die technisch
-          notwendigsten Cookies akzeptieren willst, klicke{" "}
-          <span className="Terms" onClick={() => handleCookies("minimum")}>
-            hier
-          </span>
-          &nbsp;oder konfiguriere deine{" "}
-          <span className="Terms" onClick={handleOpenCookiePreferences}>
-            Cookie-Einstellungen
-          </span>
-          .
+          <Trans i18nKey="cookiebanner_text">
+            Für die Bereitstellung einiger Funktionen und die Verbesserung
+            dieses Services brauchen wir Cookies. Falls du wirklich nur die
+            technisch notwendigsten Cookies akzeptieren willst, klicke{" "}
+            <span className="Terms" onClick={() => handleCookies("minimum")}>
+              hier
+            </span>
+            &nbsp;oder konfiguriere deine{" "}
+            <span className="Terms" onClick={handleOpenCookiePreferences}>
+              Cookie-Einstellungen
+            </span>
+            .
+          </Trans>
         </div>
-        <div className="AcceptBanner" onClick={() => handleCookies("all")}>
-          Akzeptieren
-        </div>
+        <button
+          className="buttonWide AcceptIntro"
+          onClick={() => handleCookies("all")}
+        >
+          {t("accept")}
+        </button>
         <span className="footerIntro">
           <Link to="/impressum" className="footerIntroText">
-            <span className="impressumIntro"> Impressum </span>
+            <span className="impressumIntro"> {t("imprint")} </span>
           </Link>
           <Link to="/datenschutz" className="footerIntroText">
-            <span className="datenschutzInto"> | Datenschutz |</span>
+            <span className="datenschutzInto"> | {t("dataPrivacy")} |</span>
           </Link>
           <Link to="/agb" className="footerIntroText">
-            <span> AGB </span>
+            <span> {t("termsAndConditions")} </span>
           </Link>
         </span>{" "}
       </div>
@@ -119,12 +126,9 @@ const Intro = ({ classes }) => {
   return (
     <div className={classes.wrapper}>
       <div className="wrapperMenu">
-        {/* <div className={classes.nav}>
-          <h1 className="logoIntro">
-            Gib deinen <br />
-            Senf dazu!
-          </h1>
-        </div> */}
+        {navigator.language !== "de-DE" && (
+          <p className="explanation">German expression saying – Contribute!</p>
+        )}
 
         <LazyImage
           src={FirstImage}
@@ -143,18 +147,21 @@ const Intro = ({ classes }) => {
           )}
         />
         <Link to="/start">
-          <div className={classes.PlattformButton2}>Weiter</div>
+          <button className="buttonWide buttonIntroToStart">
+            {" "}
+            {t("next")}
+          </button>
         </Link>
 
         <span className="footerIntro">
           <Link to="/impressum" className="footerIntroText">
-            <span className="impressumIntro"> Impressum </span>
+            <span className="impressumIntro"> {t("imprint")} </span>
           </Link>
           <Link to="/datenschutz" className="footerIntroText">
-            <span className="datenschutzInto"> | Datenschutz |</span>
+            <span className="datenschutzInto"> | {t("dataPrivacy")} |</span>
           </Link>
           <Link to="/agb" className="footerIntroText">
-            <span> AGB </span>
+            <span> {t("termsAndConditions")} </span>
           </Link>
         </span>
       </div>

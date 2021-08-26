@@ -416,9 +416,6 @@ class PostScream extends Component {
     });
   };
 
-  handleOpenCookiePreferences() {
-    window.open("/cookieConfigurator", "_blank");
-  }
   handleCookies() {
     cookies.set("Cookie_settings", "all", {
       path: "/",
