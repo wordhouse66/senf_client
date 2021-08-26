@@ -33,7 +33,9 @@ import Arrow from "../../images/icons/arrow.png";
 
 // REDUX STUFF
 import { connect } from "react-redux";
-import { postScream, clearErrors } from "../../redux/actions/dataActions";
+import { postScream } from "../../redux/actions/screamActions";
+import { clearErrors } from "../../redux/actions/errorsActions";
+
 import { withRouter } from "react-router-dom";
 
 import _ from "lodash";
@@ -551,7 +553,7 @@ class PostScream extends Component {
       newScream.selectedUnix = this.state.selectedUnix;
     }
 
-    this.props.postScream(newScream, this.props.history);
+    this.props.postScream(newScream, this.props.user, this.props.history);
   };
 
   _onMarkerDragEndDesktop = (newViewport) => {

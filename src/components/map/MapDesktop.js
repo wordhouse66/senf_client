@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 
 import { isMobileOnly } from "react-device-detect";
 
-import { openScream } from "../../redux/actions/dataActions";
+import { openScream } from "../../redux/actions/screamActions";
 
 import { connect } from "react-redux";
 
@@ -178,9 +178,8 @@ class MapDesktop extends Component {
     }
   }
 
-  pushScreamId = (screamId, lat, long) => {
-    const coordinates = lat + "#" + long;
-    this.props.openScream(screamId, coordinates);
+  fetchDataScream = (screamId) => {
+    this.props.openScream(screamId);
   };
 
   render() {
@@ -465,13 +464,7 @@ class MapDesktop extends Component {
                   }}
                 >
                   <button
-                    onClick={() =>
-                      this.pushScreamId(
-                        element.screamId,
-                        element.lat,
-                        element.long
-                      )
-                    }
+                    onClick={() => this.fetchDataScream(element.screamId)}
                     className="buttonExpand ripple"
                   ></button>
                 </div>

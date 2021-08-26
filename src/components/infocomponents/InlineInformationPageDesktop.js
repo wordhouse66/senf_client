@@ -9,7 +9,6 @@ import Dialog from "@material-ui/core/Dialog";
 
 // Redux stuff
 import { connect } from "react-redux";
-import { clearErrors } from "../../redux/actions/dataActions";
 import { Link } from "react-router-dom";
 
 //LazyLoad
@@ -304,15 +303,10 @@ class InlineInformationPage extends Component {
   }
 }
 
-const mapActionsToProps = {
-  clearErrors,
-};
-
 const mapStateToProps = (state) => ({
   UI: state.UI,
 });
 
-export default connect(
-  mapStateToProps,
-  mapActionsToProps
-)(withStyles(styles)(InlineInformationPage));
+export default connect(mapStateToProps)(
+  withStyles(styles)(InlineInformationPage)
+);

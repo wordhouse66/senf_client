@@ -7,6 +7,11 @@ import "./App.css";
 import "./AppDesktop.css";
 import "./AppIpad.css";
 
+import firebaseConfig from "./firebase";
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
+
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
 import themeFile from "./util/theme";
@@ -43,6 +48,10 @@ import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 require("intersection-observer");
+
+if (firebase.app.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 axios.defaults.baseURL = process.env.REACT_APP_DB_BASE_URL;
 
