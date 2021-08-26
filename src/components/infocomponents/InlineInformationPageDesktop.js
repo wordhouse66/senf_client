@@ -289,25 +289,9 @@ const InlineInformationPageDesktop = ({
         </div>
       </div>
 
-<<<<<<< HEAD
       {dialogComponent}
     </Fragment>
   );
 };
 
 export default withStyles(styles)(InlineInformationPageDesktop);
-=======
-        {dialogComponent}
-      </Fragment>
-    );
-  }
-}
-
-const mapStateToProps = (state) => ({
-  UI: state.UI,
-});
-
-export default connect(mapStateToProps)(
-  withStyles(styles)(InlineInformationPage)
-);
->>>>>>> 748979a3b634d3e3bae432abb060d045f2c1d34c

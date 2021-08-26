@@ -4,10 +4,9 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { isMobileOnly } from "react-device-detect";
 
-
 //Redux
 import { useDispatch } from "react-redux";
-import { openScream } from "../../redux/actions/dataActions";
+import { openScream } from "../../redux/actions/screamActions";
 
 //MUI Stuff
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -70,7 +69,6 @@ const MapDesktop = ({
 
   const pushScreamId = (screamId) => {
     dispatch(openScream(screamId));
-
   };
 
   const data =
@@ -324,11 +322,7 @@ const MapDesktop = ({
                   }}
                 >
                   <button
-<<<<<<< HEAD
                     onClick={() => pushScreamId(element.screamId)}
-=======
-                    onClick={() => this.fetchDataScream(element.screamId)}
->>>>>>> 748979a3b634d3e3bae432abb060d045f2c1d34c
                     className="buttonExpand ripple"
                   ></button>
                 </div>
