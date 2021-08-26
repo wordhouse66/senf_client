@@ -27,7 +27,7 @@ import PostScream from "../components/postScream/PostScream";
 import Appbar from "../components/layout/Appbar";
 
 import { InsightsPage } from "../mainComponents/Insights/InsightsPage";
-import { DesktopSidebar } from "../components/layout/DesktopSidebar";
+import DesktopSidebar from "../components/layout/DesktopSidebar";
 
 import Cookies from "universal-cookie";
 import Topbar from "../components/layout/Topbar";
@@ -565,8 +565,6 @@ export class home extends Component {
   //   });
   //   this.setState({ cookiesSetDesktop: true });
   // };
-
- 
 
   noLocation = () => {
     this.setState({

@@ -199,7 +199,7 @@ const InlineInformationPage = ({ classes }) => {
             className="buttonWide buttonInlineInfoIdeas"
             onClick={() => setOpen(false)}
           >
-            {t("infopage_button_showIdeas")}
+            {t("showIdeas")}
           </button>
 
           <a href="mailto:dein@senf.koeln">

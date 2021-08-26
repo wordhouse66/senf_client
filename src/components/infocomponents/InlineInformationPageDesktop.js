@@ -247,7 +247,7 @@ const InlineInformationPageDesktop = ({
               className="buttonWide buttonInlineInfoIdeas"
               onClick={handleCloseInfoPageDesktop}
             >
-              {t("infopage_button_showIdeas")}
+              {t("showIdeas")}
             </button>
 
             <a href="mailto:dein@senf.koeln">
