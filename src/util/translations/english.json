@@ -10,6 +10,8 @@
    "next": "Next",
    "showIdeas": "Show ideas",
    "withoutLocation":"Without specified location",
+   "withoutLocationShort":"No location",
+   "confirmLocation":"Confirm location",
 
    "newest": "newest",
    "hottest": "hottest",
@@ -22,6 +24,14 @@
    "register": "Register",
    "login": "Login",
    "profile": "Profile",
+
+   "alreadyMember":"Already a member?",
+   "notYetMember":"not yet a member?",
+   "password":"Password with at least 8 characters",
+   "confirmPassword":"Confirm password",
+   "username":"Username",
+   "birthyear":"Birthyear",
+   "gender":"Gender",
 
    "menuData_allIdeas": "All ideas",
    "menuData_projectrooms": "Projectrooms",
@@ -38,6 +48,7 @@
    "map_filterIdeas":"Show ideas in the map area in the list",
 
    "postScream_newIdea": "New idea",
+
 
    "projectrooms_description": "Together with organizations and initiatives we are looking for your ideas on specific topics / places. In the respective project rooms you can view the ideas, comment on them and enter new ones!",
    "projectrooms_request_overTitle": "For organisations/initiatives",

@@ -9,7 +9,9 @@
   "accept": "Akzeptieren",
   "next": "Weiter",
   "showIdeas": "Ideen anzeigen",
-  "withoutLocation":"Ohne Ortsangabe",
+  "withoutLocation": "Ohne Ortsangabe",
+  "withoutLocationShort": "Ohne Ort",
+  "confirmLocation": "Ort bestätigen",
 
   "newest": "neuste",
   "hottest": "schärfste",
@@ -23,20 +25,27 @@
   "login": "Anmelden",
   "profile": "Profil",
 
+  "alreadyMember":"Bereits Mitglied?",
+  "notYetMember":"noch kein Mitglied?",
+  "password":"Passwort mit mind. 8 Zeichen",
+  "confirmPassword":"Passwort bestätigen",
+  "username":"Nutzername",
+  "birthyear":"Jahrgang",
+  "gender":"Geschlecht",
 
   "menuData_allIdeas": "Alle Ideen",
   "menuData_projectrooms": "Projekträume",
   "menuData_insights": "Insights",
 
-  "topics_care":"Versorgung",
-  "topics_traffic":"Traffic",
-  "topics_ecoAndGreen":"Umwelt und Grün",
-  "topics_bike":"Rad",
-  "topics_inclusionAndSocial":"Inklusion / Soziales",
-  "topics_sportsAndLeisure":"Sport / Freizeit",
-  "topics_other":"Sonstige",
+  "topics_care": "Versorgung",
+  "topics_traffic": "Traffic",
+  "topics_ecoAndGreen": "Umwelt und Grün",
+  "topics_bike": "Rad",
+  "topics_inclusionAndSocial": "Inklusion / Soziales",
+  "topics_sportsAndLeisure": "Sport / Freizeit",
+  "topics_other": "Sonstige",
 
-  "map_filterIdeas":"Ideen im Kartenbereich in der Liste anzeigen",
+  "map_filterIdeas": "Ideen im Kartenbereich in der Liste anzeigen",
 
   "postScream_newIdea": "Neue Idee",
 
@@ -59,7 +68,7 @@
   "infopage_block3_subtitle": "Wir konnten bereits tolle Kooperationen eingehen. Wenn auch dich unsere Denkweise anspricht, lass uns quatschen!",
   "infopage_illustrator": "Illustratorin: Gizem Güvendag"
 
-  
+
 
 
 
