@@ -38,11 +38,9 @@ import "mapbox-gl/dist/mapbox-gl.css";
 
 // Redux stuff
 import { connect } from "react-redux";
-import {
-  clearErrors,
-  closeScream,
-  openProject,
-} from "../../redux/actions/dataActions";
+import { closeScream } from "../../redux/actions/screamActions";
+import { openProject } from "../../redux/actions/projectActions";
+import { clearErrors } from "../../redux/actions/errorsActions";
 
 //COMPONENTS
 import MenuScream from "../modals/menuScream/MenuScream";

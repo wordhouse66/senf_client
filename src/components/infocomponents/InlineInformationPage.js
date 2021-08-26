@@ -10,6 +10,11 @@ import { useTranslation } from "react-i18next";
 import Dialog from "@material-ui/core/Dialog";
 
 // Redux stuff
+<<<<<<< HEAD
+=======
+import { connect } from "react-redux";
+import { clearErrors } from "../../redux/actions/errorsActions";
+>>>>>>> 748979a3b634d3e3bae432abb060d045f2c1d34c
 import { Link } from "react-router-dom";
 
 //LazyLoad
