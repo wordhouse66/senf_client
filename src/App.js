@@ -50,6 +50,13 @@ import { useTranslation, initReactI18next } from "react-i18next";
 import translationEN from "./util/translations/english.json";
 import translationDE from "./util/translations/german.json";
 
+import packageJson from "../package.json";
+import { getBuildDate } from "./util/utils";
+import withClearCache from "./ClearCache";
+
+const ClearCacheComponent = withClearCache(MainApp);
+
+
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
@@ -175,6 +182,8 @@ const App = () => {
   ) : null;
   return (
     <MuiThemeProvider theme={theme}>
+      <ClearCacheComponent />;
+
       <Provider store={store}>
         <Router>
           {/* <Topbar/> */}
@@ -216,5 +225,15 @@ const App = () => {
     </MuiThemeProvider>
   );
 };
+console.log(getBuildDate(packageJson.buildDate));
+
+function MainApp(props) {
+  return (
+    <div className="App">
+      <header className="App-header">
+      </header>
+    </div>
+  );
+}
 
 export default App;

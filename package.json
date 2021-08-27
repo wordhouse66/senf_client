@@ -23,6 +23,7 @@
     "leaflet-control-geocoder": "^2.1.0",
     "linkifyjs": "*",
     "lodash": "^4.17.21",
+    "moment": "^2.29.1",
     "nominatim-geocode": "^1.1.0",
     "plotly.js": "^1.54.5",
     "react": "^16.13.1",
@@ -52,7 +53,7 @@
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
     "start:silent": "BROWSER=none PORT=3000 react-scripts start",
-    "build": "react-scripts build",
+    "build": "node ./update-build.js && react-scripts build",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cypress:ci": "start-server-and-test start:silent http://localhost:3000 cy:run",
@@ -78,5 +79,6 @@
     "cypress": "^8.1.0",
     "start-server-and-test": "^1.13.1"
   },
-  "proxy": "https://europe-west1-senf-dev.cloudfunctions.net/api"
+  "proxy": "https://europe-west1-senf-dev.cloudfunctions.net/api",
+  "buildDate": 1630060786927
 }
